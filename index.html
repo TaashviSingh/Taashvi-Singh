@@ -505,6 +505,7 @@ body.zoom-lock{overflow:hidden}
     sky:"linear-gradient(160deg,oklch(.5 .11 253),oklch(.72 .08 245) 55%,oklch(.92 .03 250))"
   };
   var cards=[
+    {featured:1,type:"project",kind:"Case Study",title:"Substract",art:"deep",r:"tall",cta:"Read the case study",link:"substract.html"},
     {featured:1,type:"project",pin:1,kind:"Case Study",title:"Arc Raiders — Player Drop-off",art:"deep",r:"tall",cta:"Read the case study"},
     {featured:1,type:"project",kind:"Game UX",title:"HUD & Radial Menu System",art:"ice",r:"wide",cta:"View project"},
     {featured:1,type:"project",kind:"UX Flow",title:"First-Session Onboarding",art:"moss",r:"tall",cta:"View project"},
@@ -522,7 +523,7 @@ body.zoom-lock{overflow:hidden}
   var arSvg='<svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   function cardHTML(c){
     return '<article class="card-wrap" data-type="'+c.type+'" data-featured="'+c.featured+'">'
-      +'<a class="card" href="#" data-zoom aria-label="'+c.title+'">'
+      +'<a class="card" href="'+(c.link || "#")+'" '+(c.link ? "" : "data-zoom")+' aria-label="'+c.title+'">'
       +(c.pin?'<span class="pin" title="Pinned"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2l1.5 5L20 9l-4.5 1.2L14 22l-2-8.8L7 12l4-2L14 2z"/></svg></span>':'')
       +'<div class="thumb '+c.r+'"><div class="art" style="background:'+arts[c.art]+'"></div><div class="glow"></div>'
       +'<div class="label"><div class="k">'+c.kind+'</div><div class="t">'+c.title+'</div></div></div>'

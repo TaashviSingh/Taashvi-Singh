@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cohyve — Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap">
+<style>
+:root{
+  --font:"Urbanist",ui-sans-serif,system-ui,sans-serif;
+  --neon:#e4ff3f;--ink:#15182a;--page:#fafafa;--text:#15182a;--muted:#687080;
+  --border:rgba(21,24,42,.14);--ease:cubic-bezier(.2,0,0,1);color-scheme:light;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--page:#171a2a;--text:#f4f5f8;--muted:#b8bfcc;--border:rgba(255,255,255,.16);color-scheme:dark}
+}
+:root[data-theme="dark"]{--page:#171a2a;--text:#f4f5f8;--muted:#b8bfcc;--border:rgba(255,255,255,.16);color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--page)}
+body{font-family:var(--font);background:var(--page);color:var(--text);line-height:1.6;min-height:100vh;
+  -webkit-font-smoothing:antialiased;transition:background .35s ease,color .35s ease}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--neon);outline-offset:4px;border-radius:5px}
+.nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;
+  padding:1rem clamp(1rem,5vw,4rem);background:color-mix(in oklab,var(--page) 84%,transparent);
+  backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.back{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;transition:gap .25s var(--ease),color .2s}
+.back:hover{gap:.8rem;color:var(--neon)}
+.back svg{width:1.1em;height:1.1em}
+.nav-title{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.nav-resume{padding:.55rem .9rem;border-radius:999px;background:var(--neon);color:var(--ink);font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:transform .25s var(--ease),filter .2s}
+.nav-resume:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.hero{max-width:1240px;margin:0 auto;padding:clamp(5rem,14vw,10rem) clamp(1.25rem,10vw,8rem) 3rem}
+.tag{display:inline-block;margin-bottom:1.25rem;padding:.42em .75em;border-radius:6px;background:var(--neon);color:var(--ink);
+  font-size:.7rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
+h1{font-size:clamp(3.6rem,11vw,9rem);font-weight:800;line-height:.86;letter-spacing:-.055em}
+.lede{max-width:32ch;margin-top:1.5rem;color:var(--muted);font-size:clamp(1.1rem,2vw,1.45rem);line-height:1.35}
+.deck{max-width:1240px;margin:0 auto;padding:1rem clamp(1rem,5vw,3rem) 5rem}
+.deck-frame{overflow:hidden;border:1px solid var(--border);border-radius:1.2rem;background:var(--page);box-shadow:0 24px 70px rgba(20,25,60,.12)}
+.deck-frame img{width:100%;height:auto}
+.caption{margin-top:1rem;color:var(--muted);font-size:.78rem;letter-spacing:.05em}
+.footer{max-width:1240px;margin:0 auto;padding:0 clamp(1.25rem,10vw,8rem) 5rem;display:flex;justify-content:space-between;gap:1rem;align-items:center;color:var(--muted);font-size:.82rem}
+.footer a{color:var(--text);font-weight:700;transition:color .2s}
+.footer a:hover{color:var(--neon)}
+.dtoggle{position:fixed;right:1.1rem;bottom:1.1rem;z-index:20;width:2.7rem;height:2.7rem;border:1px solid var(--border);border-radius:50%;
+  background:var(--page);color:var(--text);font:inherit;cursor:pointer;box-shadow:0 8px 24px rgba(20,25,60,.12)}
+@media(max-width:640px){.nav-title{display:none}.nav{padding-inline:1rem}.hero{padding-top:5rem}.footer{align-items:flex-start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.back,.nav-resume,.footer a{transition:none}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back</a>
+  <span class="nav-title">Cohyve</span>
+  <a class="nav-resume" href="https://taashvisingh.github.io/portfolio/Taashvi%20Singh%20Resume%20-%202026.pdf" target="_blank" rel="noopener">Resume</a>
+</nav>
+
+<main>
+  <header class="hero">
+    <span class="tag">Case Study</span>
+    <h1>Cohyve</h1>
+    <p class="lede">Product design case study.</p>
+  </header>
+  <section class="deck" aria-label="Cohyve case study deck">
+    <figure class="deck-frame">
+      <img src="Cohyve.webp" alt="Cohyve product design case study" loading="eager" decoding="async">
+    </figure>
+    <p class="caption">Cohyve · product design case study</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>© Taashvi Singh</span>
+  <a href="index.html">View all work →</a>
+</footer>
+
+<button class="dtoggle" id="theme-switch" aria-label="Toggle dark mode" type="button">◐</button>
+<script>
+(function(){
+  var root=document.documentElement,button=document.getElementById("theme-switch");
+  try{var saved=localStorage.getItem("theme");if(saved)root.setAttribute("data-theme",saved);}catch(e){}
+  function current(){var a=root.getAttribute("data-theme");return a|| (matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");}
+  button.addEventListener("click",function(){var next=current()==="dark"?"light":"dark";root.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});
+})();
+</script>
+</body>
+</html>

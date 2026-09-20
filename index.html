@@ -139,7 +139,7 @@ img,svg{display:block;max-width:100%}
 .card:hover{transform:translateY(-4px);outline:3px solid var(--c-accent);
   box-shadow:0 20px 44px -20px color-mix(in srgb,var(--c-accent) 50%,transparent)}
 .card .thumb{position:relative;overflow:hidden}
-.card .thumb.tall{aspect-ratio:3/4}.card .thumb.wide{aspect-ratio:5/4}.card .thumb.sq{aspect-ratio:1/1}
+.card .thumb.tall{aspect-ratio:3/4}.card .thumb.wide{aspect-ratio:5/4}.card .thumb.sq{aspect-ratio:1/1}.card .thumb.std{aspect-ratio:4/3}.card .thumb.pano{aspect-ratio:15/13}
 .card .art{position:absolute;inset:0;transition:transform .3s ease-out,filter .3s ease-out}
 .card:hover .art{transform:scale(1.03);filter:saturate(1.08) brightness(1.02)}
 .card .glow{position:absolute;inset:0;background:radial-gradient(120% 90% at 30% 15%,rgba(255,255,255,.28),transparent 55%)}
@@ -527,13 +527,13 @@ body.zoom-lock{overflow:hidden}
     sky:"linear-gradient(160deg,oklch(.5 .11 253),oklch(.72 .08 245) 55%,oklch(.92 .03 250))"
   };
   var cards=[
-    {featured:1,type:"project",pin:1,kind:"Case Study",title:"Cohyve",image:"p1.png",r:"tall",cta:"View case study",url:"cohyve.html"},
-    {featured:1,type:"project",kind:"Agentic AI",title:"Substract",image:"p2.png",r:"wide",cta:"View case study",url:"substract.html"},
+    {featured:1,type:"project",pin:1,kind:"Case Study",title:"Cohyve",image:"p1.png",r:"std",cta:"View case study",url:"cohyve.html"},
+    {featured:1,type:"project",kind:"Agentic AI",title:"Substract",image:"p2.png",r:"pano",cta:"View case study",url:"substract.html"},
     {featured:1,type:"project",kind:"Game UX",title:"Deadlock",image:"p3.png",r:"tall",cta:"View case study",url:"deadlock.html"},
     {featured:1,type:"project",kind:"App Redesign",title:"Blinkit Redesign",image:"p4.png",r:"sq",cta:"View case study",url:"blinkit.html"},
     {featured:1,type:"project",kind:"Product Design",title:"Eventory",image:"p5.png",r:"wide",cta:"View case study",url:"eventory.html"}
   ];
-  var hgt={tall:1.33,wide:.8,sq:1.0};
+  var hgt={tall:1.33,wide:.8,sq:1.0,std:.75,pano:.867};
   var pinSvg='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 12.5l9-9 3 3-1 1 4 4-1 5-2-2-4.5 4.5L9 21l1-4.5-3-3L2.5 12.5zm5 .5l3 3"/><path d="M3 21l5-5" stroke="currentColor" stroke-width="1.6"/></svg>';
   var arSvg='<svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   function cardHTML(c){

@@ -1,3 +1,6 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t||"light");}catch(e){document.documentElement.setAttribute("data-theme","light");}</script>
 <title>Taashvi Singh</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -496,7 +499,7 @@ body.zoom-lock{overflow:hidden}
 
   /* theme */
   var root=document.documentElement, dots=[].slice.call(document.querySelectorAll("#theme-dots .dot"));
-  try{var s=localStorage.getItem("theme");if(s)root.setAttribute("data-theme",s);}catch(e){}
+  try{var s=localStorage.getItem("theme");root.setAttribute("data-theme",s||"light");}catch(e){root.setAttribute("data-theme","light");}
   function cur(){var a=root.getAttribute("data-theme");return a?a:(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");}
   function reflectTheme(){var c=cur();dots.forEach(function(d){var on=d.getAttribute("data-set")===c;d.classList.toggle("on",on);d.setAttribute("aria-pressed",on?"true":"false");});}
   reflectTheme();

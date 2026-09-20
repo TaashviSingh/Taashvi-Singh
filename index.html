@@ -538,7 +538,7 @@ body.zoom-lock{overflow:hidden}
   var pinSvg='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 12.5l9-9 3 3-1 1 4 4-1 5-2-2-4.5 4.5L9 21l1-4.5-3-3L2.5 12.5zm5 .5l3 3"/><path d="M3 21l5-5" stroke="currentColor" stroke-width="1.6"/></svg>';
   var arSvg='<svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   function cardHTML(c){
-    var art=c.image?'background-image:url("'+c.image+'");background-size:cover;background-position:top center;background-repeat:no-repeat':'background:'+arts[c.art];
+    var art=c.image?"background-image:url('"+c.image+"');background-size:cover;background-position:top center;background-repeat:no-repeat":'background:'+arts[c.art];
     return '<article class="card-wrap" data-type="'+c.type+'" data-featured="'+c.featured+'">'
       +'<a class="card" '+(c.url?('href="'+c.url+'"'):'href="#" data-zoom')+' aria-label="'+c.title+'">'
       +(c.pin?'<span class="pin" title="Pinned"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2l1.5 5L20 9l-4.5 1.2L14 22l-2-8.8L7 12l4-2L14 2z"/></svg></span>':'')

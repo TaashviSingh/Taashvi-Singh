@@ -100,9 +100,11 @@ img,svg{display:block;max-width:100%}
 .intro{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:2.4rem}
 .intro .who{font-size:.95rem;line-height:1.5;opacity:.95}
 .intro .who b{font-weight:500}
-.intro .dots{display:flex;gap:.4rem;padding-top:.35rem}
-.intro .dots i{width:9px;height:9px;border-radius:9999px;border:1.5px solid var(--on);opacity:.55}
-.intro .dots i.on{background:var(--on);opacity:1}
+.intro .dots{display:flex;gap:.55rem;padding-top:.5rem}
+.intro .dots .dot{width:13px;height:13px;padding:0;border-radius:9999px;border:1.6px solid var(--on);background:transparent;opacity:.5;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .25s ease,background .25s ease,transform .25s var(--ease-out-back)}
+.intro .dots .dot:hover{opacity:.9;transform:scale(1.15)}
+.intro .dots .dot.on{background:var(--on);opacity:1}
+.intro .dots .dot:focus-visible{outline:2px solid var(--on);outline-offset:3px}
 .bio p{font-size:1.06rem;line-height:1.55;max-width:42ch;margin-bottom:1.15rem;opacity:.96}
 .bio a.hl{color:var(--link);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--link) 45%,transparent);text-underline-offset:3px}
 .hero-links{margin-top:2.2rem;display:flex;flex-direction:column;align-items:flex-start;gap:.7rem;font-size:.96rem}
@@ -216,7 +218,7 @@ img,svg{display:block;max-width:100%}
 .footer-socials a:hover{transform:translateY(-3px)}
 .footer-socials svg{width:1em;height:1em}
 .footer-mark{position:absolute;bottom:-.32em;left:0;right:0;font-family:var(--font-display);font-weight:700;
-  font-size:14cqw;line-height:.82;letter-spacing:-.045em;color:var(--c-page-bg);text-align:center;user-select:none;pointer-events:none;white-space:nowrap}
+  font-size:14cqw;line-height:.82;letter-spacing:-.045em;color:color-mix(in srgb,var(--c-page-bg) 38%,#fff);text-align:center;user-select:none;pointer-events:none;white-space:nowrap}
 .footer-reveal{opacity:0;transform:translateY(12px);transition:opacity var(--dur-slow) ease,transform var(--dur-slow) var(--ease-out-sharp)}
 .footer-reveal.vis{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.footer-reveal{opacity:1;transform:none}}
@@ -332,8 +334,9 @@ body.zoom-lock{overflow:hidden}
   box-shadow:0 4px 14px -5px rgba(0,0,0,.3);
   --elastic-ease-out:linear(0,.5737 7.6%,.8382 11.87%,.9463 14.19%,1.0292 16.54%,1.0886 18.97%,1.1258 21.53%,1.137 22.97%,1.1424 24.48%,1.1423 26.1%,1.1366 27.86%,1.1165 31.01%,1.0507 38.62%,1.0219 42.57%,.9995 46.99%,.9872 51.63%,.9842 58.77%,1.0011 81.26%,1);
   --smooth-ease:cubic-bezier(.32,.72,0,1);--color-ease:cubic-bezier(.215,.61,.355,1);
-  transition:transform .45s var(--elastic-ease-out);-webkit-tap-highlight-color:transparent}
+  transition:transform .45s var(--elastic-ease-out),translate .45s var(--ease-out-sharp),opacity .35s ease;translate:0;opacity:1;-webkit-tap-highlight-color:transparent}
 .button05:active{transform:scaleX(.955) scaleY(.954)}
+.button05.nav-hidden{translate:0 -180%;opacity:0;pointer-events:none}
 .button05:is(:hover,:focus-visible){color:var(--button-hover-fg)}
 .button05_bg{background-color:var(--button-bg);border-radius:.3125rem;grid-area:1/1;overflow:clip;
   transition:background-color .2s var(--color-ease)}
@@ -404,16 +407,6 @@ body.zoom-lock{overflow:hidden}
   </span>
 </a>
 
-<button class="dtoggle" id="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
-    <svg class="bg-ic sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-    <svg class="bg-ic moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
-    <span class="thumb">
-      <svg class="th-ic sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      <svg class="th-ic moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
-      <span class="burst"></span>
-    </span>
-  </button>
-
 <main id="top">
   <section class="sky-band">
     <div class="sky" aria-hidden="true"><canvas class="sky-canvas"></canvas><div class="sky-scrim"></div></div>
@@ -425,6 +418,10 @@ body.zoom-lock{overflow:hidden}
               <b>Hello! I&rsquo;m Taashvi :)</b>
               <div class="role-line">and I&rsquo;m a <span class="roller" id="roller" aria-label="UX Designer, Design Engineer, Interaction Designer, Problem Solver, Game UX Designer, Creative Thinker"><span class="rw">UX Designer</span></span></div>
             </div>
+            <div class="dots" id="theme-dots" role="group" aria-label="Switch between light and dark mode">
+              <button type="button" class="dot" data-set="light" aria-label="Light mode" aria-pressed="false" title="Light mode"></button>
+              <button type="button" class="dot" data-set="dark" aria-label="Dark mode" aria-pressed="false" title="Dark mode"></button>
+            </div>
           </div>
           <div class="bio">
             <p>These days I&rsquo;m nose-deep in what makes a game <em>feel</em> good to touch &mdash; the weight of a button press, the half-second a menu takes to breathe. I wandered in from product design, got quietly obsessed with the interfaces living inside games, and never quite found my way back out. When I&rsquo;m not pushing pixels, I&rsquo;m usually overthinking the plot of a novella I keep threatening to finish.</p>
@@ -433,17 +430,18 @@ body.zoom-lock{overflow:hidden}
           <!-- EXPERIENCE + COMPANY LOGOS — replace monograms with <img src="logo.svg"> and data-name with the company -->
           <div class="exp">
             <div class="exp-stat"><span class="exp-n">2+</span><span class="exp-l">years<br>experience</span></div>
-            <div class="logos" aria-label="Companies I've worked with">
-              <span class="logo" data-name="Company One" tabindex="0">C1<span class="tip">Company One</span></span>
-              <span class="logo" data-name="Company Two" tabindex="0">C2<span class="tip">Company Two</span></span>
-              <span class="logo" data-name="Studio Three" tabindex="0">S3<span class="tip">Studio Three</span></span>
-              <span class="logo" data-name="Lab Four" tabindex="0">L4<span class="tip">Lab Four</span></span>
+            <div class="logos" aria-label="Companies I've interned with">
+              <span class="logo" data-name="Company 1" tabindex="0"><img src="i1.png" alt="Company 1"><span class="tip">Company 1</span></span>
+              <span class="logo" data-name="Company 2" tabindex="0"><img src="i2.png" alt="Company 2"><span class="tip">Company 2</span></span>
+              <span class="logo" data-name="Company 3" tabindex="0"><img src="i3.png" alt="Company 3"><span class="tip">Company 3</span></span>
+              <span class="logo" data-name="Company 4" tabindex="0"><img src="i4.png" alt="Company 4"><span class="tip">Company 4</span></span>
+              <span class="logo" data-name="Company 5" tabindex="0"><img src="i5.png" alt="Company 5"><span class="tip">Company 5</span></span>
+              <span class="logo" data-name="Company 6" tabindex="0"><img src="i6.png" alt="Company 6"><span class="tip">Company 6</span></span>
             </div>
           </div>
           <div class="hero-links">
             <a href="#work"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 6.4L20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6z"/></svg>learn a little bit about me</a>
-            <a href="https://www.linkedin.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.2 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24H22.2c.98 0 1.8-.78 1.8-1.73V1.73C24 .77 23.2 0 22.2 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zm15.11 13.02h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28z"/></svg>linkedin.com/in/taashvi-singh</a>
-            <a href="https://www.behance.net/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.9 6C10.8 6 12 7 12 8.9c0 1-.5 1.8-1.4 2.3 1.2.4 1.9 1.4 1.9 2.8 0 2.2-1.7 3-3.9 3H2V6h6.9zm-.5 4.7c.8 0 1.3-.4 1.3-1.2 0-.8-.6-1.1-1.4-1.1H4.9v2.3h3.5zm.2 4.9c.9 0 1.5-.4 1.5-1.4 0-.9-.6-1.3-1.5-1.3H4.9v2.7h3.7zM22 7h-7V5h7v2zm0 6.6c0 .3 0 .5-.1.8h-6c.1 1.3.9 1.9 2 1.9.9 0 1.5-.4 1.7-.9h2.1c-.5 1.7-2 2.7-3.9 2.7-2.6 0-4.3-1.7-4.3-4.4 0-2.6 1.8-4.4 4.3-4.4 2.6 0 4.1 2 4.1 4.3zm-6.1-.9h3.9c-.1-1-.8-1.6-1.9-1.6-1 0-1.8.6-2 1.6z"/></svg>behance.net/taashvisingh</a>
+            <a href="https://www.linkedin.com/in/taashvi-singh-674229237/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.2 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24H22.2c.98 0 1.8-.78 1.8-1.73V1.73C24 .77 23.2 0 22.2 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zm15.11 13.02h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28z"/></svg>linkedin.com/in/taashvi-singh</a>
             <a href="mailto:taashvisingh@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>taashvisingh@gmail.com</a>
           </div>
         </div>
@@ -465,13 +463,12 @@ body.zoom-lock{overflow:hidden}
   </section>
 
   <div class="wrap pre-footer">
-    <div class="footer-tagline"><span>Made in Pune, India</span><span>chai in hand, forever iterating</span></div>
+    <div class="footer-tagline"><span>Coded by me</span><span>With &lt;3</span></div>
     <div class="footer-flowers" aria-hidden="true"></div>
     <footer class="site-footer">
   <div class="footer-content">
     <ul class="footer-socials footer-reveal">
-      <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.2 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24H22.2c.98 0 1.8-.78 1.8-1.73V1.73C24 .77 23.2 0 22.2 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zm15.11 13.02h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28z"/></svg>linkedin.com/in/taashvi-singh</a></li>
-      <li><a href="https://www.behance.net/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.9 6C10.8 6 12 7 12 8.9c0 1-.5 1.8-1.4 2.3 1.2.4 1.9 1.4 1.9 2.8 0 2.2-1.7 3-3.9 3H2V6h6.9zm-.5 4.7c.8 0 1.3-.4 1.3-1.2 0-.8-.6-1.1-1.4-1.1H4.9v2.3h3.5zm.2 4.9c.9 0 1.5-.4 1.5-1.4 0-.9-.6-1.3-1.5-1.3H4.9v2.7h3.7zM22 7h-7V5h7v2zm0 6.6c0 .3 0 .5-.1.8h-6c.1 1.3.9 1.9 2 1.9.9 0 1.5-.4 1.7-.9h2.1c-.5 1.7-2 2.7-3.9 2.7-2.6 0-4.3-1.7-4.3-4.4 0-2.6 1.8-4.4 4.3-4.4 2.6 0 4.1 2 4.1 4.3zm-6.1-.9h3.9c-.1-1-.8-1.6-1.9-1.6-1 0-1.8.6-2 1.6z"/></svg>behance.net/taashvisingh</a></li>
+      <li><a href="https://www.linkedin.com/in/taashvi-singh-674229237/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.2 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24H22.2c.98 0 1.8-.78 1.8-1.73V1.73C24 .77 23.2 0 22.2 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zm15.11 13.02h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28z"/></svg>linkedin.com/in/taashvi-singh</a></li>
       <li><a href="mailto:taashvisingh@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>taashvisingh@gmail.com</a></li>
       <li><a href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Back to top</a></li>
     </ul>
@@ -497,21 +494,17 @@ body.zoom-lock{overflow:hidden}
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* theme */
-  var root=document.documentElement, tsw=document.getElementById("theme-switch");
+  var root=document.documentElement, dots=[].slice.call(document.querySelectorAll("#theme-dots .dot"));
   try{var s=localStorage.getItem("theme");if(s)root.setAttribute("data-theme",s);}catch(e){}
   function cur(){var a=root.getAttribute("data-theme");return a?a:(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");}
-  function reflectTheme(){if(tsw)tsw.setAttribute("aria-checked",cur()==="dark"?"true":"false");}
+  function reflectTheme(){var c=cur();dots.forEach(function(d){var on=d.getAttribute("data-set")===c;d.classList.toggle("on",on);d.setAttribute("aria-pressed",on?"true":"false");});}
   reflectTheme();
-  if(tsw){
-    tsw.addEventListener("click",function(){
-      var n=cur()==="dark"?"light":"dark";
-      var burst=tsw.querySelector(".burst");
-      if(burst&&!reduce){burst.classList.remove("go");void burst.offsetWidth;burst.classList.add("go");}
-      var b=tsw.getBoundingClientRect();
-      irisTo(b.left+b.width/2,b.top+b.height/2,function(){root.setAttribute("data-theme",n);try{localStorage.setItem("theme",n);}catch(e){}reflectTheme();});
-    });
-    try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){if(!localStorage.getItem("theme"))reflectTheme();});}catch(e){}
-  }
+  dots.forEach(function(d){d.addEventListener("click",function(){
+    var n=d.getAttribute("data-set");if(n===cur())return;
+    var b=d.getBoundingClientRect();
+    irisTo(b.left+b.width/2,b.top+b.height/2,function(){root.setAttribute("data-theme",n);try{localStorage.setItem("theme",n);}catch(e){}reflectTheme();});
+  });});
+  try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){if(!localStorage.getItem("theme"))reflectTheme();});}catch(e){}
 
   /* iris page/theme transition */
   function irisTo(x,y,apply){
@@ -534,17 +527,11 @@ body.zoom-lock{overflow:hidden}
     sky:"linear-gradient(160deg,oklch(.5 .11 253),oklch(.72 .08 245) 55%,oklch(.92 .03 250))"
   };
   var cards=[
-    {featured:1,type:"project",pin:1,kind:"Case Study",title:"Cohyve",image:"Cohyve.webp",r:"tall",cta:"View case study",url:"cohyve.html"},
-    {featured:1,type:"project",kind:"Agentic AI",title:"Substract",art:"ice",r:"wide",cta:"View case study",url:"substract.html"},
-    {featured:1,type:"project",kind:"UX Flow",title:"First-Session Onboarding",art:"moss",r:"tall",cta:"View project"},
-    {featured:1,type:"project",kind:"Writing",title:"Hiraeth",art:"aurora",r:"sq",cta:"Read an excerpt"},
-    {featured:0,type:"project",kind:"Interaction",title:"Inventory & Loadout Study",art:"plum",r:"wide",cta:"View project"},
-    {featured:1,type:"project",kind:"Micro-interaction",title:"Reward & Progression Feedback",art:"ember",r:"tall",cta:"View project"},
-    {featured:0,type:"project",kind:"Writing",title:"Splits in a Second",art:"dusk",r:"sq",cta:"Read an excerpt"},
-    {featured:0,type:"project",kind:"Systems",title:"Accessible Colorblind Modes",art:"sky",r:"tall",cta:"View project"},
-    {featured:0,type:"snippet",kind:"Snippet",title:"Easing & Motion Playground",art:"ice",r:"sq",cta:"Open snippet"},
-    {featured:0,type:"snippet",kind:"Snippet",title:"Cursor Trail Study",art:"plum",r:"sq",cta:"Open snippet"},
-    {featured:0,type:"snippet",kind:"Snippet",title:"Toggle Micro-interaction",art:"aurora",r:"sq",cta:"Open snippet"}
+    {featured:1,type:"project",pin:1,kind:"Case Study",title:"Cohyve",image:"p1.png",r:"tall",cta:"View case study",url:"cohyve.html"},
+    {featured:1,type:"project",kind:"Agentic AI",title:"Substract",image:"p2.png",r:"wide",cta:"View case study",url:"substract.html"},
+    {featured:1,type:"project",kind:"Game UX",title:"Deadlock",image:"p3.png",r:"tall",cta:"View case study",url:"deadlock.html"},
+    {featured:1,type:"project",kind:"App Redesign",title:"Blinkit Redesign",image:"p4.png",r:"sq",cta:"View case study",url:"blinkit.html"},
+    {featured:1,type:"project",kind:"Product Design",title:"Eventory",image:"p5.png",r:"wide",cta:"View case study",url:"eventory.html"}
   ];
   var hgt={tall:1.33,wide:.8,sq:1.0};
   var pinSvg='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 12.5l9-9 3 3-1 1 4 4-1 5-2-2-4.5 4.5L9 21l1-4.5-3-3L2.5 12.5zm5 .5l3 3"/><path d="M3 21l5-5" stroke="currentColor" stroke-width="1.6"/></svg>';
@@ -654,7 +641,6 @@ body.zoom-lock{overflow:hidden}
   /* GSAP hero load stagger + section reveals */
   if(hasGSAP&&!reduce){
     gsap.from(".hero .intro, .hero .bio p, .exp, .hero-links a",{opacity:0,y:20,filter:"blur(6px)",duration:.75,ease:"power3.out",stagger:.08,delay:.15});
-    gsap.from(".button05, .dtoggle",{opacity:0,y:-10,duration:.6,ease:"power2.out",delay:.35});
     gsap.from(".feed-head .index-label, .feed-head .feed-filter",{opacity:0,y:16,duration:.7,ease:"power3.out",stagger:.1,scrollTrigger:{trigger:".feed-head",start:"top 88%"}});
     gsap.from(".footer-tagline, .footer-flowers",{opacity:0,y:16,duration:.7,ease:"power3.out",stagger:.12,scrollTrigger:{trigger:".pre-footer",start:"top 90%"}});
   }
@@ -696,6 +682,19 @@ body.zoom-lock{overflow:hidden}
   function close(){if(!clone||!source)return;var thumb=source.querySelector(".thumb"),r=thumb.getBoundingClientRect(),cl=parseFloat(clone.style.left),ct=parseFloat(clone.style.top),cw=parseFloat(clone.style.width),ch=parseFloat(clone.style.height);overlay.classList.remove("active");var done=false,fin=function(){if(done)return;done=true;if(clone&&clone.parentNode)clone.parentNode.removeChild(clone);clone=null;overlay.classList.remove("open");thumb.style.visibility="";document.body.classList.remove("zoom-lock");if(onKey){document.removeEventListener("keydown",onKey);onKey=null;}source=null;};if(reduce){fin();return;}clone.style.transition="transform .26s cubic-bezier(.4,0,.2,1)";clone.style.transform="translate("+(r.left-cl)+"px,"+(r.top-ct)+"px) scale("+(r.width/cw)+","+(r.height/ch)+")";clone.addEventListener("transitionend",fin,{once:true});setTimeout(fin,450);}
   function bindZoom(){document.querySelectorAll(".card[data-zoom]").forEach(function(el){if(el.dataset.zoomInit)return;el.dataset.zoomInit="1";el.addEventListener("click",function(e){e.preventDefault();open(el);});});}
   backdrop.addEventListener("click",close);closeBtn.addEventListener("click",close);
+
+  /* resume CTA hides on scroll-down, springs back on scroll-up */
+  (function(){
+    var btn=document.querySelector(".button05");if(!btn)return;
+    var last=window.pageYOffset||0,ticking=false;
+    function upd(){
+      var y=window.pageYOffset||0;
+      if(y>last+4&&y>140){btn.classList.add("nav-hidden");}
+      else if(y<last-4){btn.classList.remove("nav-hidden");}
+      last=y;ticking=false;
+    }
+    window.addEventListener("scroll",function(){if(!ticking){requestAnimationFrame(upd);ticking=true;}},{passive:true});
+  })();
 })();
 </script>
 <script>

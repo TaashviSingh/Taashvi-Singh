@@ -121,12 +121,9 @@ img{display:block;max-width:100%}
 .cs-objective dt{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--_muted);margin-bottom:.55rem}
 .cs-objective dd{font-size:clamp(.98rem,1.8vw,1.1rem);line-height:1.6;font-weight:400;color:var(--_text);max-width:66ch}
 
-/* cover + deck */
-.cover{margin-top:3rem}
-.cover img{width:100%;border-radius:1.5rem;border:1px solid var(--_border);box-shadow:0 30px 60px -30px rgba(20,24,42,.4);background:var(--_card);aspect-ratio:16/9;object-fit:cover}
-.deck{padding-block:4rem 2rem;display:flex;flex-direction:column;gap:1.5rem}
-.deck img{width:100%;border-radius:1.25rem;border:1px solid var(--_border);box-shadow:0 18px 40px -28px rgba(20,24,42,.35);background:var(--_card)}
-.deck-note{text-align:center;color:var(--_muted);font-size:.85rem;padding:2.5rem 1rem;border:1.5px dashed var(--_border);border-radius:1.25rem}
+/* deck — single full-width case-study image, no frame */
+.deck{margin-top:3rem}
+.deck img{display:block;width:100%}
 
 /* footer nav */
 .cs-foot{padding-block:4rem 6rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;border-top:1px solid var(--_border);margin-top:3rem}
@@ -148,9 +145,7 @@ img{display:block;max-width:100%}
   .back{font-size:.85rem}
   .cs-facts{padding-top:2.2rem}
   .cs-objective{margin-top:1.6rem;padding-top:1.4rem}
-  .cover{margin-top:2.2rem}
-  .cover img{border-radius:1.1rem}
-  .deck{padding-top:3rem}
+  .deck{margin-top:2rem}
   .cs-foot{padding-bottom:4.5rem}
 }
 @media(max-width:400px){
@@ -219,15 +214,9 @@ img{display:block;max-width:100%}
     </div>
   </section>
 
-  <div class="wrap cover rv">
-    <!-- optional cover shot: swap src for your hero image -->
-    <img src="p1.png" alt="Cohyve cover">
-  </div>
-
-  <!-- ===== DECK — add one <img> per PPT slide ===== -->
-  <section class="wrap deck">
-    <!-- Export each slide (~1600px wide) and add: <img class="rv" src="cohyve-1.png" alt="Slide 1"> -->
-    <div class="deck-note rv">Drop your case-study slides here, one <code>&lt;img class="rv" src="…"&gt;</code> per slide.</div>
+  <!-- ===== DECK — your full case-study export, one image, full width ===== -->
+  <section class="deck">
+    <img src="cohyve-deck.png" alt="Cohyve case study">
   </section>
 
   <div class="wrap">

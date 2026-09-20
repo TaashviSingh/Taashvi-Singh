@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blinkit Redesign · Taashvi Singh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap">
+<style>
+:root{
+  --font-body:"Urbanist",ui-sans-serif,system-ui,sans-serif;
+  --c-accent: oklch(55% .24 260);
+  --c-bg:     oklch(98% .004 260);
+  --c-text:   oklch(24% .045 275);
+  --c-muted:  oklch(53% .07 270);
+  --c-border: oklch(30% .04 275 / .12);
+  --c-horizon:oklch(95% .018 250);
+  --c-night-ground:oklch(23% .062 262);
+  --c-dark-bg:oklch(28% .035 272);--c-dark-text:oklch(95% .02 268);--c-dark-muted:oklch(78% .045 270);--c-dark-border:oklch(90% .03 270 / .16);
+  --dur-fast:.2s;--dur-base:.4s;--ease-out-sharp:cubic-bezier(.2,0,0,1);--ease-out-back:cubic-bezier(.2,0,0,1.4);
+  --c-page-bg:var(--c-horizon);
+  --_text:var(--c-text);--_muted:var(--c-muted);--_border:var(--c-border);--_card:var(--c-bg);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c-accent:oklch(66% .182 258);--c-page-bg:var(--c-night-ground);--_text:var(--c-dark-text);--_muted:var(--c-dark-muted);--_border:var(--c-dark-border);--_card:var(--c-dark-bg);color-scheme:dark;}}
+:root[data-theme="dark"]{--c-accent:oklch(66% .182 258);--c-page-bg:var(--c-night-ground);--_text:var(--c-dark-text);--_muted:var(--c-dark-muted);--_border:var(--c-dark-border);--_card:var(--c-dark-bg);color-scheme:dark;}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--c-page-bg);overflow-x:clip;scrollbar-width:none;-ms-overflow-style:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
+body{font-family:var(--font-body);background:var(--c-page-bg);color:var(--_text);font-size:.9375rem;line-height:1.75;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;min-height:100vh;transition:background-color var(--dur-base) ease,color var(--dur-base) ease}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--c-accent);color:#fff}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:24px}
+@media(min-width:640px){.wrap{padding-inline:40px}}
+
+/* progress bar */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;background:var(--c-accent);z-index:70}
+
+/* top bar (auto-hides on scroll) */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  padding:max(.9rem,env(safe-area-inset-top)) clamp(24px,4vw,48px) .9rem;pointer-events:none;
+  transition:translate .4s var(--ease-out-sharp),opacity .35s ease;translate:0}
+.topbar.hide{translate:0 -140%;opacity:0;pointer-events:none}
+.topbar>*{pointer-events:auto}
+.back{display:inline-flex;align-items:center;gap:.5rem;font-size:.9rem;font-weight:600;color:var(--_text);
+  transition:transform var(--dur-base) var(--ease-out-back),color var(--dur-fast) ease}
+.back:hover{transform:translateX(-3px)}
+.back svg{width:1.05em;height:1.05em;transition:transform var(--dur-fast) var(--ease-out-back)}
+.back:hover svg{transform:translateX(-2px)}
+.topright{display:flex;align-items:center;gap:1.1rem}
+.dots{display:flex;gap:.55rem}
+.dots .dot{width:13px;height:13px;padding:0;border-radius:9999px;border:1.5px solid var(--_text);background:transparent;opacity:.5;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .25s ease,background .25s ease,transform .25s var(--ease-out-back)}
+.dots .dot:hover{opacity:.85;transform:scale(1.12)}
+.dots .dot.on{background:var(--_text);opacity:1}
+.dots .dot:focus-visible{outline:2px solid var(--_text);outline-offset:3px}
+/* over the sky hero, back + dots go white so they stay visible */
+.topbar.on-hero .back{color:#fff}
+.topbar.on-hero .dots .dot{border-color:#fff}
+.topbar.on-hero .dots .dot.on{background:#fff}
+
+/* ===== Arrow-Dots resume CTA — EXACT same component as the home page ===== */
+.button05{position:relative;z-index:1;
+  --button-bg:#15182a;--button-fg:#fff;--button-hover-bg:#fff;--button-hover-fg:#15182a;
+  color:var(--button-fg);font-family:var(--font-body);font-weight:700;letter-spacing:-.02em;text-transform:uppercase;
+  user-select:none;transform-style:preserve-3d;font-size:.875rem;line-height:1em;text-decoration:none;display:grid;
+  box-shadow:0 1px 4px -2px rgba(0,0,0,.2);
+  --elastic-ease-out:linear(0,.5737 7.6%,.8382 11.87%,.9463 14.19%,1.0292 16.54%,1.0886 18.97%,1.1258 21.53%,1.137 22.97%,1.1424 24.48%,1.1423 26.1%,1.1366 27.86%,1.1165 31.01%,1.0507 38.62%,1.0219 42.57%,.9995 46.99%,.9872 51.63%,.9842 58.77%,1.0011 81.26%,1);
+  --smooth-ease:cubic-bezier(.32,.72,0,1);--color-ease:cubic-bezier(.215,.61,.355,1);
+  transition:transform .45s var(--elastic-ease-out);-webkit-tap-highlight-color:transparent}
+.button05:active{transform:scaleX(.955) scaleY(.954)}
+.button05:is(:hover,:focus-visible){color:var(--button-hover-fg)}
+.button05_bg{background-color:var(--button-bg);border-radius:.3125rem;grid-area:1/1;overflow:clip;transition:background-color .2s var(--color-ease)}
+.button05:is(:hover,:focus-visible) .button05_bg{background-color:var(--button-hover-bg)}
+.button05_inner{grid-gap:.625rem;grid-area:1/1;padding:.875rem .625rem .875rem .75rem;display:grid;translate:0}
+.button05_text{grid-area:1/1;transition:scale .45s var(--smooth-ease);transform-origin:100%}
+.button05_inner:before{content:attr(data-text);pointer-events:none;transition:scale .45s var(--smooth-ease);transform-origin:0;grid-area:1/1;scale:0}
+.button05_icon-wrap{grid-column-gap:.125rem;grid-row-gap:.125rem;grid-row:1;display:flex}
+.button05_icon{grid-column-gap:.0625rem;grid-row-gap:.0625rem;flex-flow:column;justify-content:center;align-items:flex-end;display:flex}
+.button05_dot{margin-right:calc(var(--index) * .1875rem);background-color:var(--button-fg);border-radius:.0625rem;width:.125rem;height:.125rem;display:block;
+  transition:scale .4s var(--smooth-ease),translate .45s var(--smooth-ease),background-color .2s var(--color-ease)}
+.button05:is(:hover,:focus-visible) .button05_dot{background-color:var(--button-hover-fg)}
+.button05_icon:first-child .button05_dot{scale:0}
+@media (hover:hover) and (pointer:fine){
+  .button05:is(:hover,:focus-visible) .button05_text{scale:0}
+  .button05:is(:hover,:focus-visible) .button05_inner:before{scale:1}
+  .button05:is(:hover,:focus-visible) .button05_icon:last-child .button05_dot{transition-delay:calc(var(--index) * 40ms);translate:.5625rem;scale:0}
+  .button05:is(:hover,:focus-visible) .button05_icon:nth-child(-n+3) .button05_dot{transition-delay:calc((var(--index) * 40ms) + (var(--index-parent) * 70ms));translate:.5625rem;scale:1}
+}
+@media (hover:none) or (pointer:coarse){
+  .button05:active .button05_bg{background-color:var(--button-hover-bg);transition-duration:0s}
+  .button05:active{color:var(--button-hover-fg)}
+  .button05:active .button05_dot{background-color:var(--button-hover-fg)}
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .button05{--button-bg:#fff;--button-fg:#15182a;--button-hover-bg:#15182a;--button-hover-fg:#fff}}
+:root[data-theme="dark"] .button05{--button-bg:#fff;--button-fg:#15182a;--button-hover-bg:#15182a;--button-hover-fg:#fff}
+
+/* ---------- HERO (designed top) ---------- */
+.hero{position:relative;padding:clamp(7rem,15vw,9rem) 0 3rem;overflow:hidden;isolation:isolate;--on:oklch(.99 .006 250)}
+.hero .sky{position:absolute;inset:0 auto auto 50%;translate:-50% 0;width:100vw;height:100%;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(in oklab to bottom,
+    oklch(.5 .11 253) 0%,oklch(.58 .088 244) 34%,oklch(.7 .06 245) 60%,oklch(.84 .036 248) 82%,var(--c-horizon) 100%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero .sky{background-image:linear-gradient(in oklab to bottom,oklch(.09 .055 280) 0%,oklch(.13 .058 272) 44%,oklch(.18 .06 266) 80%,var(--c-night-ground) 100%)}}
+:root[data-theme="dark"] .hero .sky{background-image:linear-gradient(in oklab to bottom,oklch(.09 .055 280) 0%,oklch(.13 .058 272) 44%,oklch(.18 .06 266) 80%,var(--c-night-ground) 100%)}
+.cs-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--on);background:color-mix(in srgb,#fff 16%,transparent);border:1px solid color-mix(in srgb,#fff 34%,transparent);
+  padding:.42rem .8rem;border-radius:9999px;backdrop-filter:blur(4px)}
+.cs-title{font-family:var(--font-body);font-weight:800;letter-spacing:-.035em;line-height:.98;color:var(--on);font-size:clamp(2.8rem,10vw,6rem);margin:1.4rem 0 .5rem}
+.cs-lede{max-width:38ch;font-size:clamp(1.05rem,2.4vw,1.4rem);line-height:1.4;font-weight:400;color:var(--on);opacity:.95}
+
+/* ---------- FACTS bar (on page bg — always readable) ---------- */
+.cs-facts{padding-block:2.8rem .5rem}
+.cs-meta{display:grid;grid-template-columns:1fr;gap:1.6rem 2.4rem}
+@media(min-width:640px){.cs-meta{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.cs-meta dt{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--_muted);margin-bottom:.35rem}
+.cs-meta dd{font-size:1rem;font-weight:600;color:var(--_text)}
+.cs-objective{margin-top:2rem;padding-top:1.8rem;border-top:1px solid var(--_border)}
+.cs-objective dt{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--_muted);margin-bottom:.55rem}
+.cs-objective dd{font-size:clamp(.98rem,1.8vw,1.1rem);line-height:1.6;font-weight:400;color:var(--_text);max-width:66ch}
+
+/* deck — single full-width case-study image, no frame */
+.deck{margin-top:3rem}
+.deck img{display:block;width:100%}
+
+/* footer nav */
+.cs-foot{padding-block:4rem 6rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;border-top:1px solid var(--_border);margin-top:3rem}
+.cs-foot .lbl{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--_muted)}
+.cs-foot a{font-weight:700;font-size:1.05rem;display:inline-flex;align-items:center;gap:.5rem;transition:transform var(--dur-base) var(--ease-out-back)}
+.cs-foot a:hover{transform:translateX(3px)}
+.cs-foot a.prev:hover{transform:translateX(-3px)}
+.cs-foot svg{width:1.1em;height:1.1em}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s var(--ease-out-sharp)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+
+/* responsive */
+@media(max-width:600px){
+  .topbar{padding:max(.7rem,env(safe-area-inset-top)) 18px .7rem}
+  .topright{gap:.75rem}
+  .back{font-size:.85rem}
+  .cs-facts{padding-top:2.2rem}
+  .cs-objective{margin-top:1.6rem;padding-top:1.4rem}
+  .deck{margin-top:2rem}
+  .cs-foot{padding-bottom:4.5rem}
+}
+@media(max-width:400px){
+  .back .bk-full{display:none}
+  .topbar{padding-inline:14px}
+}
+
+/* theme-aware dot cursor */
+@media (hover:hover) and (pointer:fine){
+  html{cursor:var(--cur-d,auto)}
+  a,button,.dot,.back,.button05{cursor:var(--cur-p,pointer)}
+}
+:focus-visible{outline:2px solid var(--c-accent);outline-offset:3px}
+@keyframes iris-in{from{clip-path:circle(0 at var(--vt-x,50%) var(--vt-y,50%))}to{clip-path:circle(var(--vt-r,170vmax) at var(--vt-x,50%) var(--vt-y,50%))}}
+::view-transition-old(root){animation:none;z-index:1}
+::view-transition-new(root){animation:iris-in .55s cubic-bezier(.2,0,0,1);z-index:2}
+@media (prefers-reduced-motion:reduce){::view-transition-group(root),::view-transition-old(root),::view-transition-new(root){animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="topbar" id="topbar">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span class="bk-lbl">Back<span class="bk-full"> to work</span></span></a>
+  <div class="topright">
+    <div class="dots" id="theme-dots" role="group" aria-label="Switch between light and dark mode">
+      <button type="button" class="dot" data-set="light" aria-label="Light mode" aria-pressed="false" title="Light mode"></button>
+      <button type="button" class="dot" data-set="dark" aria-label="Dark mode" aria-pressed="false" title="Dark mode"></button>
+    </div>
+    <a class="button05 w-inline-block" href="Taashvi%20Singh%20Resume%20-%202026.pdf" target="_blank" rel="noopener" aria-label="Open Taashvi Singh's resume">
+      <span class="button05_bg"></span>
+      <span data-text="Resume" class="button05_inner">
+        <span class="button05_text">Resume</span>
+        <span class="button05_icon-wrap" aria-hidden="true">
+          <span class="button05_icon" style="--index-parent:3"><span class="button05_dot" style="--index:2"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:0"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:2"></span></span>
+          <span class="button05_icon" style="--index-parent:2"><span class="button05_dot" style="--index:2"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:0"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:2"></span></span>
+          <span class="button05_icon" style="--index-parent:1"><span class="button05_dot" style="--index:2"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:0"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:2"></span></span>
+          <span class="button05_icon" style="--index-parent:0"><span class="button05_dot" style="--index:2"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:0"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:2"></span></span>
+        </span>
+      </span>
+    </a>
+  </div>
+</div>
+
+<main>
+  <!-- ===== DESIGNED TOP — edit text per project ===== -->
+  <section class="hero">
+    <div class="sky" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="cs-tag">Concept</span>
+      <h1 class="cs-title">Blinkit Redesign</h1>
+      <p class="cs-lede">A self-initiated concept that reworks the quick-commerce flow, from browsing to checkout. Not affiliated with the brand.</p>
+    </div>
+  </section>
+
+  <section class="wrap cs-facts rv">
+    <dl class="cs-meta">
+      <div><dt>Project Type</dt><dd>App Redesign · Concept</dd></div>
+      <div><dt>Focus</dt><dd>UX/UI · Flows · Visual Design</dd></div>
+      <div><dt>Duration</dt><dd>2025</dd></div>
+    </dl>
+    <div class="cs-objective">
+      <dt>Objective</dt>
+      <dd>A personal redesign exploring how a 10-minute grocery app could feel calmer and quicker to move through, without losing the speed that makes it useful. Not affiliated with Blinkit.</dd>
+    </div>
+  </section>
+
+  <!-- ===== DECK — your full case-study export, one image, full width ===== -->
+  <section class="deck">
+    <img src="blinkit.png" alt="Blinkit Redesign case study">
+  </section>
+
+  <div class="wrap">
+    <nav class="cs-foot">
+      <a class="prev" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All work</a>
+      <div style="text-align:right">
+        <div class="lbl">Next project</div>
+        <a href="eventory.html">Eventory<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </nav>
+  </div>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var root=document.documentElement;
+
+  /* theme (shared 'theme' key with home) */
+  try{var s=localStorage.getItem("theme");if(s)root.setAttribute("data-theme",s);}catch(e){}
+  function cur(){var a=root.getAttribute("data-theme");return a?a:(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");}
+  var dots=[].slice.call(document.querySelectorAll("#theme-dots .dot"));
+  function reflect(){var c=cur();dots.forEach(function(d){var on=d.getAttribute("data-set")===c;d.classList.toggle("on",on);d.setAttribute("aria-pressed",on?"true":"false");});}
+  reflect();
+  function irisTo(x,y,apply){
+    if(reduce||!document.startViewTransition){apply();return;}
+    var r=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
+    root.style.setProperty("--vt-x",x+"px");root.style.setProperty("--vt-y",y+"px");root.style.setProperty("--vt-r",r+"px");
+    try{document.startViewTransition(apply);}catch(e){apply();}
+  }
+  dots.forEach(function(d){d.addEventListener("click",function(){
+    var n=d.getAttribute("data-set");if(n===cur())return;var b=d.getBoundingClientRect();
+    irisTo(b.left+b.width/2,b.top+b.height/2,function(){root.setAttribute("data-theme",n);try{localStorage.setItem("theme",n);}catch(e){}reflect();});
+  });});
+  try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){if(!localStorage.getItem("theme"))reflect();});}catch(e){}
+
+  /* progress bar */
+  var bar=document.getElementById("progress");
+  function prog(){var h=document.documentElement.scrollHeight-innerHeight;var p=h>0?scrollY/h:0;bar.style.transform="scaleX("+p+")";}
+  addEventListener("scroll",prog,{passive:true});addEventListener("resize",prog);prog();
+
+  /* top bar auto-hide: hides on scroll-down, springs back on scroll-up (same as home CTA) */
+  var top=document.getElementById("topbar"),last=scrollY||0,tick=false;
+  function heroThresh(){var h=document.querySelector(".hero");return h?h.offsetTop+h.offsetHeight-64:9999;}
+  function onHero(){top.classList.toggle("on-hero",(scrollY||0)<heroThresh());}
+  function upd(){var y=scrollY||0;if(y>last+4&&y>120){top.classList.add("hide");}else if(y<last-4){top.classList.remove("hide");}onHero();last=y;tick=false;}
+  addEventListener("scroll",function(){if(!tick){requestAnimationFrame(upd);tick=true;}},{passive:true});
+  addEventListener("resize",onHero);onHero();
+
+  /* reveal on scroll */
+  var rv=document.querySelectorAll(".rv");
+  if("IntersectionObserver" in window && !reduce){var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{rootMargin:"0px 0px -8% 0px"});rv.forEach(function(x){io.observe(x);});}
+  else rv.forEach(function(x){x.classList.add("in");});
+
+  /* theme-aware dot cursor */
+  if(matchMedia("(hover:hover) and (pointer:fine)").matches){
+    function isDark(){var a=root.getAttribute("data-theme");return a?a==="dark":matchMedia("(prefers-color-scheme: dark)").matches;}
+    function dot(color,r){var sz=r*2+8,c=sz/2;return "<svg xmlns='http://www.w3.org/2000/svg' width='"+sz+"' height='"+sz+"' viewBox='0 0 "+sz+" "+sz+"'><circle cx='"+c+"' cy='"+c+"' r='"+r+"' fill='"+color+"'/></svg>";}
+    function url(r,col){return "url(\"data:image/svg+xml;utf8,"+encodeURIComponent(dot(col,r))+"\") "+((r*2+8)/2)+" "+((r*2+8)/2)+", ";}
+    function setCur(){var col=isDark()?"#ffffff":"#242a44";root.style.setProperty("--cur-d",url(5,col)+"auto");root.style.setProperty("--cur-p",url(8,col)+"pointer");}
+    setCur();new MutationObserver(setCur).observe(root,{attributes:true,attributeFilter:["data-theme"]});
+    try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",setCur);}catch(e){}
+  }
+})();
+</script>
+</body>
+</html>

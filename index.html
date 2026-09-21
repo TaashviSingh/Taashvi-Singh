@@ -368,7 +368,9 @@ body.zoom-lock{overflow:hidden}
 :root[data-theme="dark"] .lcard .lc-img{background-color:oklch(34% .05 262)}
 .lcard .lc-body{padding:1rem 1.15rem 1.2rem}
 .lcard .lc-name{font-family:var(--font-display);font-weight:800;font-size:1.18rem;letter-spacing:-.02em;line-height:1.15}
-.lcard .lc-role{font-weight:600;font-size:.92rem;color:var(--c-accent);margin-top:.15rem}
+.lcard .lc-role{font-weight:600;font-size:.92rem;color:oklch(.34 .19 262);margin-top:.15rem}
+:root[data-theme="dark"] .lcard .lc-role{color:oklch(.82 .11 258)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lcard .lc-role{color:oklch(.82 .11 258)}}
 .lcard .lc-period{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--_muted);margin-top:.45rem;display:flex;align-items:center;gap:.4rem}
 .lcard .lc-period svg{width:.85rem;height:.85rem;stroke:currentColor;stroke-width:2;fill:none;flex:0 0 auto}
 .lcard .lc-brief{font-size:.9rem;line-height:1.55;color:var(--_muted);margin-top:.7rem}

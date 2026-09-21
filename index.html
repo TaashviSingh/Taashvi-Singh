@@ -150,7 +150,14 @@ img,svg{display:block;max-width:100%}
 .card .art{position:absolute;inset:0;transition:transform .3s ease-out,filter .3s ease-out}
 .card:hover .art{transform:scale(1.03);filter:saturate(1.08) brightness(1.02)}
 .card .glow{position:absolute;inset:0;background:radial-gradient(120% 90% at 30% 15%,rgba(255,255,255,.28),transparent 55%)}
-.card .label{position:absolute;left:1.35rem;bottom:1.35rem;right:1.35rem;z-index:2;color:#fff;text-shadow:0 1px 22px rgba(0,0,0,.4)}
+/* legibility scrim behind the label — every card, so bottom text always reads */
+.card .thumb::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to top,rgba(4,8,24,.72) 0%,rgba(4,8,24,.34) 26%,transparent 52%);
+  transition:opacity .3s ease}
+.card:hover .thumb::after{opacity:.35}
+.card .label{position:absolute;left:1.35rem;bottom:1.35rem;right:1.35rem;z-index:2;color:#fff;text-shadow:0 1px 22px rgba(0,0,0,.4);
+  transition:opacity .28s ease,transform .28s var(--ease-out-sharp)}
+.card:hover .label{opacity:0;transform:translateY(6px)}
 .card .label .k{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;opacity:.9}
 .card .label .t{font-family:var(--font-display);font-weight:600;font-size:1.35rem;line-height:1.1;letter-spacing:-.02em;margin-top:.3rem}
 
@@ -163,14 +170,15 @@ img,svg{display:block;max-width:100%}
 .card:hover .btn-zone{pointer-events:auto}
 .hover-btn{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.2rem;
   border-radius:calc(2rem - .4rem);corner-shape:squircle;background:var(--c-accent);color:#fff;border:1px solid var(--c-accent);
-  font-size:.9rem;font-weight:500;letter-spacing:.01em;opacity:0;transform:translateY(10px) scale(.98);filter:blur(6px);
+  font-size:.9rem;font-weight:600;letter-spacing:-.01em;opacity:0;transform:translateY(10px) scale(.98);filter:blur(6px);
   transition:transform var(--dur-base) var(--ease-out-sharp),opacity .25s ease,filter .35s var(--ease-out-sharp),background var(--dur-fast) ease,color var(--dur-fast) ease}
 .card:hover .hover-btn{opacity:1;transform:none;filter:blur(0)}
 .hover-btn:hover{background:var(--_card);color:var(--_text)}
-.hover-btn .ar{width:1.1em;height:1.1em;transition:transform var(--dur-fast) var(--ease-out-back)}
+.hover-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hover-btn .ar{width:1.1em;height:1.1em;flex:0 0 auto;transition:transform var(--dur-fast) var(--ease-out-back)}
 .hover-btn:hover .ar{transform:translateX(3px)}
 .card-caption{display:none;margin-top:.6rem;padding:0 .3rem;font-size:.8rem;color:var(--_muted);justify-content:space-between;gap:1rem}
-@media(hover:none),(pointer:coarse){.card-caption{display:flex}.btn-zone{display:none}}
+@media(hover:none),(pointer:coarse){.card-caption{display:flex}.btn-zone{display:none}.card:hover .label{opacity:1;transform:none}}
 @supports not (corner-shape:squircle){.card,.hover-btn{border-radius:1.25rem}}
 
 @media not (prefers-reduced-motion:reduce){
@@ -565,12 +573,12 @@ body.zoom-lock{overflow:hidden}
     sky:"linear-gradient(160deg,oklch(.5 .11 253),oklch(.72 .08 245) 55%,oklch(.92 .03 250))"
   };
   var cards=[
-    {featured:1,type:"project",pin:1,kind:"Case Study",title:"Cohyve",image:"p1.png",r:"std",cta:"View case study",url:"cohyve.html"},
-    {featured:1,type:"project",kind:"Fintech · AI",title:"Credlo",image:"p6.png",r:"wide",cta:"View case study",url:"credlo.html"},
-    {featured:1,type:"project",kind:"Game UX",title:"Deadlock",image:"p3.png",r:"tall",cta:"View case study",url:"deadlock.html"},
-    {featured:1,type:"project",kind:"Design Engineering",title:"Substract",image:"p2.png",r:"pano",cta:"View case study",url:"substract.html"},
-    {featured:1,type:"project",kind:"App Redesign",title:"Blinkit Redesign",image:"p4.jpg",r:"sq",cta:"View case study",url:"blinkit.html"},
-    {featured:1,type:"project",kind:"Product Design",title:"Evently",image:"p5.png",r:"wide",cta:"View case study",url:"evently.html"},
+    {featured:1,type:"project",pin:1,kind:"UI · Visual Design · Product Design",title:"Cohyve",image:"p1.png",r:"std",cta:"View case study",url:"cohyve.html"},
+    {featured:1,type:"project",kind:"Cognitive Ergonomics · UI Redesign · UX Research",title:"Blinkit Redesign",image:"p4.jpg",r:"sq",cta:"View case study",url:"blinkit.html"},
+    {featured:1,type:"project",kind:"Game UX · UI Redesign",title:"Deadlock",image:"p3.png",r:"tall",cta:"View case study",url:"deadlock.html"},
+    {featured:1,type:"project",kind:"Design Engineering · Vibe Coding · Agentic AI · UI · UX",title:"Substract",image:"p2.png",r:"pano",cta:"View case study",url:"substract.html"},
+    {featured:1,type:"project",kind:"Designathon · Agentic AI · UX · UI",title:"Credlo",image:"p6.png",r:"wide",cta:"View case study",url:"credlo.html"},
+    {featured:1,type:"project",kind:"UX Research · UX Design · UI &amp; Visual Design",title:"Evently",image:"p5.png",r:"wide",cta:"View case study",url:"evently.html"},
     {featured:1,type:"project",kind:"UX Research",title:"Digital Wellbeing",image:"p7.png",r:"tall",cta:"View case study",url:"digital-wellbeing.html"}
   ];
   var hgt={tall:1.33,wide:.8,sq:1.0,std:.75,pano:.867};
@@ -583,7 +591,7 @@ body.zoom-lock{overflow:hidden}
       +(c.pin?'<span class="pin" title="Pinned"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2l1.5 5L20 9l-4.5 1.2L14 22l-2-8.8L7 12l4-2L14 2z"/></svg></span>':'')
       +'<div class="thumb '+c.r+'"><div class="art" style="'+art+'"></div><div class="glow"></div>'
       +'<div class="label"><div class="k">'+c.kind+'</div><div class="t">'+c.title+'</div></div></div>'
-      +'<div class="btn-zone"><div class="hover-btn"><span>'+c.cta+'</span>'+arSvg+'</div></div></a>'
+      +'<div class="btn-zone"><div class="hover-btn"><span>'+c.title+'</span>'+arSvg+'</div></div></a>'
       +'<div class="card-caption"><span>'+c.title+'</span><span>'+c.kind+'</span></div></article>';
   }
 
@@ -949,8 +957,8 @@ body.zoom-lock{overflow:hidden}
   function done(){if(killed)return;killed=true;if(raf)cancelAnimationFrame(raf);if(loader.parentNode)loader.parentNode.removeChild(loader);document.body.style.overflow="";}
   setTimeout(done,7000);
 
-  var phrase="LET\u2019S DESIGN THE FUTURE WE WANT TO SEE";
-  function fill(id){var el=document.getElementById(id);if(!el)return;var one="";for(var i=0;i<6;i++){one+='<span>'+phrase+' <i>\u2022</i></span>';}el.innerHTML=one+one;}
+  var phrase="LET’S DESIGN THE FUTURE WE WANT TO SEE";
+  function fill(id){var el=document.getElementById(id);if(!el)return;var one="";for(var i=0;i<6;i++){one+='<span>'+phrase+' <i>•</i></span>';}el.innerHTML=one+one;}
   fill("ltrackA");fill("ltrackB");
   requestAnimationFrame(function(){requestAnimationFrame(function(){loader.classList.add("in");});});
   startDither();

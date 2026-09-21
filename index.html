@@ -393,7 +393,41 @@ body.zoom-lock{overflow:hidden}
 @media (hover:none){
   .logo .tip{display:none}
 }
+
+/* ===== intro loader ===== */
+#loader{position:fixed;inset:0;z-index:9999;overflow:hidden;
+  background:linear-gradient(to bottom,#4d74cf 0%,#7d9bde 32%,#b7cbee 62%,#e9f0fb 100%);
+  transition:opacity .6s ease}
+#loader.hide{opacity:0;pointer-events:none}
+#loader-sky{position:absolute;inset:0;width:100%;height:100%;display:block}
+.lscrim{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 95% at 50% 42%,transparent 56%,rgba(38,66,135,.16))}
+.lribbon{position:absolute;left:-20vw;width:140vw;padding:.55rem 0;overflow:hidden;background:transparent;z-index:2;
+  border-top:1.4px solid rgba(26,33,60,.55);border-bottom:1.4px solid rgba(26,33,60,.55);
+  transform:rotate(var(--rot,0deg));transform-origin:center;will-change:transform,opacity;opacity:0;filter:blur(8px);
+  transition:transform .9s cubic-bezier(.7,0,.28,1),opacity .85s ease,filter .85s ease}
+#loader.in .lribbon{opacity:1;filter:blur(0)}
+#loader.in .lribbon.b{transition-delay:.14s}
+.lribbon.a{top:33%;--rot:-3deg}
+.lribbon.b{top:61%;--rot:3deg}
+.ltrack{display:flex;width:max-content;white-space:nowrap;animation:lmarq var(--dur,17s) linear infinite;will-change:transform}
+.ltrack.rev{animation-name:lmarq-rev}
+.ltrack span{display:inline-block;padding:0 1.1rem;font-family:var(--font-display);font-weight:800;
+  font-size:clamp(1.1rem,3.4vw,2.1rem);letter-spacing:.07em;text-transform:uppercase;color:#1a2340;text-shadow:0 1px 2px rgba(255,255,255,.4)}
+.ltrack span i{font-style:normal;opacity:.45;padding:0 .15rem;color:#3548a8}
+@keyframes lmarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes lmarq-rev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+#loader.exit .lribbon.a{transform:translateX(-165vw) rotate(var(--rot,0deg));opacity:0}
+#loader.exit .lribbon.b{transform:translateX(165vw) rotate(var(--rot,0deg));opacity:0}
+@media (max-width:600px){.lribbon.a{top:30%;--rot:-2.5deg}.lribbon.b{top:62%;--rot:2.5deg}.ltrack span{padding:0 .8rem}}
+@media (prefers-reduced-motion:reduce){#loader{display:none}}
 </style>
+
+<div id="loader" aria-hidden="true">
+  <canvas id="loader-sky"></canvas>
+  <div class="lscrim"></div>
+  <div class="lribbon a"><div class="ltrack" id="ltrackA"></div></div>
+  <div class="lribbon b"><div class="ltrack rev" id="ltrackB"></div></div>
+</div>
 
 <!-- Arrow-Dots resume CTA -->
 <a class="button05 w-inline-block" href="Taashvi%20Singh%20Resume%20-%202026.pdf" target="_blank" rel="noopener" aria-label="Open Taashvi Singh's resume">
@@ -436,6 +470,7 @@ body.zoom-lock{overflow:hidden}
           </div>
           <div class="bio">
             <p>a 3rd Year Experience Design student and I believe in designing with foresight for what&rsquo;s next, not just what&rsquo;s now.</p>
+            <p>Let&rsquo;s design for the future we want to see!</p>
           </div>
 
           <!-- EXPERIENCE + COMPANY LOGOS — replace monograms with <img src="logo.svg"> and data-name with the company -->
@@ -901,5 +936,56 @@ body.zoom-lock{overflow:hidden}
   window.addEventListener('touchmove',handleTouchMove,false);
   window.addEventListener('touchend',handleTouchEnd);
   updateFrame();
+})();
+</script>
+<script>
+/* ===== intro loader: dithered clouds + crossing ribbons, then exit ===== */
+(function(){
+  var loader=document.getElementById("loader");
+  if(!loader)return;
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var internal=false;try{var ref=document.referrer;if(ref){var ru=new URL(ref);internal=(ru.host===location.host)&&(ru.pathname!==location.pathname);}}catch(e){}
+  if(reduce||internal){loader.parentNode&&loader.parentNode.removeChild(loader);return;}
+  document.body.style.overflow="hidden";
+
+  var phrase="LET’S DESIGN THE FUTURE WE WANT TO SEE";
+  function fill(id){var el=document.getElementById(id);if(!el)return;var one="";for(var i=0;i<6;i++){one+='<span>'+phrase+' <i>•</i></span>';}el.innerHTML=one+one;}
+  fill("ltrackA");fill("ltrackB");
+  requestAnimationFrame(function(){requestAnimationFrame(function(){loader.classList.add("in");});});
+
+  /* dithered clouds on the loader canvas (compact copy of the hero shader) */
+  var raf=null;
+  (function dither(){
+    var c=document.getElementById("loader-sky");if(!c)return;
+    var gl=c.getContext("webgl")||c.getContext("experimental-webgl");if(!gl)return;
+    var VS="attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}";
+    var FS=["precision highp float;","uniform vec2 uRes;uniform float uTime;",
+      "float hash(vec2 p){p=fract(p*vec2(123.34,345.45));p+=dot(p,p+34.345);return fract(p.x*p.y);}",
+      "float noise(vec2 p){vec2 i=floor(p),f=fract(p);float a=hash(i),b=hash(i+vec2(1.,0.)),c=hash(i+vec2(0.,1.)),d=hash(i+vec2(1.,1.));vec2 u=f*f*(3.-2.*f);return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}",
+      "float fbm(vec2 p){float v=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<5;i++){v+=a*noise(p);p=m*p;a*=.5;}return v;}",
+      "float bayer2(vec2 a){a=floor(a);return fract(a.x/2.+a.y*a.y*.75);}",
+      "void main(){vec2 fc=gl_FragCoord.xy;vec2 uv=fc/uRes;float asp=uRes.x/uRes.y;",
+      "vec2 p=vec2(uv.x*asp,uv.y)*3.0;float t=uTime*0.05*6.0;p+=vec2(t*.12,t*.03);",
+      "vec2 q=vec2(fbm(p),fbm(p+vec2(5.2,1.3)));float d=fbm(p+.3*3.5*q+vec2(t*.1,0.));",
+      "d=smoothstep(.42,.86,d);d*=mix(.3,1.,1.-uv.y);",
+      "float bn=bayer2(.5*fc)*.25+bayer2(fc);float lv=4.0;float v=d*lv;float qd=(floor(v)+step(bn,fract(v)))/lv;",
+      "vec3 sky=mix(vec3(.74,.83,.94),vec3(.22,.40,.74),uv.y);vec3 col=mix(sky,vec3(.99,.99,1.),qd);",
+      "gl_FragColor=vec4(col,1.0);}"].join("\n");
+    function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o;}
+    var pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,VS));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr,gl.LINK_STATUS))return;gl.useProgram(pr);
+    var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    var loc=gl.getAttribLocation(pr,"p");gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+    var uRes=gl.getUniformLocation(pr,"uRes"),uTime=gl.getUniformLocation(pr,"uTime");
+    var dpr=Math.min(window.devicePixelRatio||1,1.5);
+    function rs(){var r=c.getBoundingClientRect();var w=Math.max(1,r.width*dpr|0),h=Math.max(1,r.height*dpr|0);if(c.width!==w||c.height!==h){c.width=w;c.height=h;}gl.viewport(0,0,c.width,c.height);gl.uniform2f(uRes,c.width,c.height);}
+    addEventListener("resize",rs);var t0=performance.now();rs();
+    function frame(now){raf=requestAnimationFrame(frame);rs();gl.uniform1f(uTime,(now-t0)/1000);gl.drawArrays(gl.TRIANGLES,0,3);}
+    raf=requestAnimationFrame(frame);
+  })();
+
+  setTimeout(function(){loader.classList.add("exit");},4200);
+  setTimeout(function(){loader.classList.add("hide");},5100);
+  setTimeout(function(){if(raf)cancelAnimationFrame(raf);if(loader.parentNode)loader.parentNode.removeChild(loader);document.body.style.overflow="";},5650);
 })();
 </script>

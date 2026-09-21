@@ -119,6 +119,21 @@ img,svg{display:block;max-width:100%}
 .hero-links a:hover{transform:translateX(5px);color:var(--link-h)}
 .hero-links svg{width:1em;height:1em;flex-shrink:0}
 
+/* Resume — scramble-on-hover link (ported from the Hyperiux ScrambleLinkButton) */
+.hero-links{gap:.9rem}
+.hero-links a.scramble-link{color:var(--link);gap:.7em;transition:color .35s ease}
+.hero-links a.scramble-link:hover{color:var(--on);transform:none}
+.scramble-link .sl-lead{width:1em;height:1em;flex:0 0 auto}
+.scramble-link .sl-wrap{position:relative;display:inline-block;font-variant-ligatures:none}
+.scramble-link .sl-ghost{visibility:hidden;white-space:pre}
+.scramble-link .sl-text{position:absolute;inset:0;text-align:left;white-space:pre}
+.scramble-link .sl-wrap::after{content:"";position:absolute;left:0;bottom:-3px;height:1.5px;width:100%;background:currentColor;
+  transform:scaleX(0);transform-origin:right;transition:transform .45s cubic-bezier(.625,.05,0,1)}
+.scramble-link:hover .sl-wrap::after{transform:scaleX(1);transform-origin:left}
+.scramble-link .sl-arrow{width:1em;height:1em;flex:0 0 auto;transition:transform .3s ease}
+.scramble-link:hover .sl-arrow{transform:rotate(-45deg)}
+@media (prefers-reduced-motion:reduce){.scramble-link .sl-wrap::after,.scramble-link .sl-arrow{transition:none}}
+
 /* ---------- Index + tabs ---------- */
 #work{padding-top:3.5rem}
 .feed-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
@@ -453,27 +468,6 @@ body.zoom-lock{overflow:hidden}
   <div class="lribbon b"><div class="ltrack rev" id="ltrackB"></div></div>
 </div>
 
-<!-- Arrow-Dots resume CTA -->
-<a class="button05 w-inline-block" href="Taashvi%20Singh%20Resume%20-%202026.pdf" target="_blank" rel="noopener" aria-label="Open Taashvi Singh's resume">
-  <span class="button05_bg"></span>
-  <span data-text="Resume" class="button05_inner">
-    <span class="button05_text">Resume</span>
-    <span class="button05_icon-wrap" aria-hidden="true">
-      <span class="button05_icon" style="--index-parent:3">
-        <span class="button05_dot" style="--index:2"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:0"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:2"></span>
-      </span>
-      <span class="button05_icon" style="--index-parent:2">
-        <span class="button05_dot" style="--index:2"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:0"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:2"></span>
-      </span>
-      <span class="button05_icon" style="--index-parent:1">
-        <span class="button05_dot" style="--index:2"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:0"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:2"></span>
-      </span>
-      <span class="button05_icon" style="--index-parent:0">
-        <span class="button05_dot" style="--index:2"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:0"></span><span class="button05_dot" style="--index:1"></span><span class="button05_dot" style="--index:2"></span>
-      </span>
-    </span>
-  </span>
-</a>
 
 <main id="top">
   <section class="sky-band">
@@ -527,6 +521,11 @@ body.zoom-lock{overflow:hidden}
           <div class="hero-links">
             <a href="https://www.linkedin.com/in/taashvi-singh-674229237/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.2 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24H22.2c.98 0 1.8-.78 1.8-1.73V1.73C24 .77 23.2 0 22.2 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zm15.11 13.02h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28z"/></svg>linkedin.com/in/taashvi-singh</a>
             <a href="mailto:taashvisingh@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>taashvisingh@gmail.com</a>
+            <a class="scramble-link" href="Taashvi%20Singh%20Resume%20-%202026.pdf" target="_blank" rel="noopener" data-scramble="Resume">
+              <svg class="sl-lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+              <span class="sl-wrap"><span class="sl-ghost">Resume</span><span class="sl-text">Resume</span></span>
+              <svg class="sl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -757,7 +756,7 @@ body.zoom-lock{overflow:hidden}
 
   /* GSAP hero load stagger + section reveals */
   if(hasGSAP&&!reduce){
-    gsap.from(".hero .intro, .hero .bio p, .exp, .hero-links a",{opacity:0,y:20,filter:"blur(6px)",duration:.75,ease:"power3.out",stagger:.08,delay:.15});
+    gsap.from(".hero .intro, .hero .bio p, .exp, .hero-links",{opacity:0,y:20,filter:"blur(6px)",duration:.75,ease:"power3.out",stagger:.08,delay:.15,clearProps:"all"});
     gsap.from(".feed-head .index-label",{opacity:0,y:16,duration:.7,ease:"power3.out",scrollTrigger:{trigger:".feed-head",start:"top 88%"}});
     gsap.from(".footer-tagline, .footer-flowers",{opacity:0,y:16,duration:.7,ease:"power3.out",stagger:.12,scrollTrigger:{trigger:".pre-footer",start:"top 90%"}});
   }
@@ -800,17 +799,34 @@ body.zoom-lock{overflow:hidden}
   function bindZoom(){document.querySelectorAll(".card[data-zoom]").forEach(function(el){if(el.dataset.zoomInit)return;el.dataset.zoomInit="1";el.addEventListener("click",function(e){e.preventDefault();open(el);});});}
   backdrop.addEventListener("click",close);closeBtn.addEventListener("click",close);
 
-  /* resume CTA hides on scroll-down, springs back on scroll-up */
+  /* scramble-on-hover text (Resume link) */
   (function(){
-    var btn=document.querySelector(".button05");if(!btn)return;
-    var last=window.pageYOffset||0,ticking=false;
-    function upd(){
-      var y=window.pageYOffset||0;
-      if(y>last+4&&y>140){btn.classList.add("nav-hidden");}
-      else if(y<last-4){btn.classList.remove("nav-hidden");}
-      last=y;ticking=false;
+    var GLYPHS="abcdefghijklmnopqrstuvwxyz0123456789";
+    var DURATION=500,STEP=30,STAGGER=1;
+    function scramble(el,finalText){
+      if(reduce){el.textContent=finalText;return;}
+      clearTimeout(el._scrT);
+      var iter=0,maxIter=Math.max(1,Math.floor(DURATION/STEP));
+      (function upd(){
+        var out="";
+        for(var i=0;i<finalText.length;i++){
+          var c=finalText[i];
+          if(c===" "){out+=c;continue;}
+          var thr=(((i+1)/finalText.length)*maxIter)/STAGGER;
+          out+=(iter>=thr)?c:GLYPHS[Math.floor(Math.random()*GLYPHS.length)];
+        }
+        el.textContent=out;
+        if(iter>=maxIter){el.textContent=finalText;return;}
+        iter++;el._scrT=setTimeout(upd,STEP);
+      })();
     }
-    window.addEventListener("scroll",function(){if(!ticking){requestAnimationFrame(upd);ticking=true;}},{passive:true});
+    document.querySelectorAll(".scramble-link").forEach(function(link){
+      var el=link.querySelector(".sl-text");if(!el)return;
+      var finalText=link.getAttribute("data-scramble")||el.textContent;
+      el.textContent=finalText;
+      link.addEventListener("mouseenter",function(){scramble(el,finalText);});
+      link.addEventListener("focus",function(){scramble(el,finalText);});
+    });
   })();
 })();
 </script>

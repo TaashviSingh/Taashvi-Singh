@@ -826,6 +826,32 @@ html,body{overflow-x:clip}
 .hl-nw:hover .hl-n{background:#e9eefb}
 .hl-n{transition:background .25s}
 @media (max-width:760px){.hl-chip{transform:none;top:auto}.hl-pop{left:0;transform:none}}
+
+/* hero statement in sentence case */
+.hero-line{text-transform:none!important;letter-spacing:-.045em!important;line-height:.92!important}
+
+
+/* ---------- process v3: heading block bottom-left, stages scroll on the right ---------- */
+.proc .proc-body{grid-template-columns:minmax(0,1fr) max-content minmax(0,.95fr);column-gap:clamp(28px,4vw,72px);
+  padding:0 max(var(--m),env(safe-area-inset-right,0px)) 0 max(var(--m),env(safe-area-inset-left,0px))}
+.proc-left{align-self:end;padding-bottom:calc(var(--m) + 76px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:flex-start}
+.proc-box{position:relative;width:clamp(84px,7.4vw,120px);aspect-ratio:1;border:1px solid rgba(255,255,255,.26);margin-bottom:clamp(20px,3.4vh,34px)}
+.proc-box .pc-ic{position:absolute;left:50%;top:50%;width:40%;height:40%;margin:-20% 0 0 -20%;color:#fff;opacity:0}
+.proc-box .pc-ic.on{opacity:1}
+.proc-left .proc-kicker{display:block;margin:0 0 14px;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.proc-left .proc-kicker::before,.proc-left .proc-kicker::after{content:none}
+.proc-left .proc-h{font-size:clamp(28px,min(3.7vw,7vh),64px);line-height:.92;letter-spacing:-.04em;text-align:left}
+.proc .proc-wheel{justify-self:start}
+@media (max-width:760px){
+  .proc .proc-body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 34vh auto;align-content:start;padding-top:calc(var(--m) + 50px)}
+  .proc-left{align-self:start;padding-bottom:0}.proc-box{display:none}
+  .proc-left .proc-h{font-size:clamp(26px,8.4vw,40px)}
+  .proc .proc-wheel{height:30vh;margin-top:18px;-webkit-mask:linear-gradient(transparent,#000 34%,#000 66%,transparent);mask:linear-gradient(transparent,#000 34%,#000 66%,transparent)}
+  .proc .proc-body{grid-template-rows:auto 30vh auto}
+  .proc .pd{gap:12px}.proc .pd p{font-size:13.5px}
+}
+
+.pd-ai::before{height:1px!important;background:rgba(255,255,255,.22)!important;-webkit-mask:none!important;mask:none!important}
 </style>
 <style>html,body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -938,21 +964,20 @@ window.__loaderKill=kill;setTimeout(kill,9000);window.addEventListener('error',f
   <div class="stage">
     <div class="floaters" id="floaters"></div>
     <svg class="proc-ast" id="procAst" aria-hidden="true"><use href="#ast"/></svg>
-    <div class="proc-intro" id="procIntro">
-      <p class="proc-kicker">My design process</p>
-      <h2 class="proc-h"><span class="rv"><span>Human-led.</span></span><span class="rv ai"><span>AI-accelerated.</span></span></h2>
-    </div>
     <div class="proc-body" id="procBody">
-      <p class="proc-label"><svg aria-hidden="true"><use href="#ast"/></svg>How I integrate AI<br>in my design process</p>
-      <div class="proc-ring" aria-hidden="true"><svg class="pr-dash" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48"/></svg><svg class="pc-ic" data-i="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><svg class="pc-ic" data-i="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg><svg class="pc-ic" data-i="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/></svg><svg class="pc-ic" data-i="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="4" width="18" height="16"/><path d="M3 9h18M8 9v11"/></svg><svg class="pc-ic" data-i="4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="pc-ic" data-i="5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></div>
+      <div class="proc-left" id="procLeft">
+        <div class="proc-box" aria-hidden="true"><svg class="pc-ic" data-i="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><svg class="pc-ic" data-i="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg><svg class="pc-ic" data-i="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/></svg><svg class="pc-ic" data-i="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="4" width="18" height="16"/><path d="M3 9h18M8 9v11"/></svg><svg class="pc-ic" data-i="4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="pc-ic" data-i="5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></div>
+        <p class="proc-kicker">My design process</p>
+        <h2 class="proc-h"><span class="rv"><span>Human led.</span></span><span class="rv ai"><span>AI accelerated.</span></span></h2>
+      </div>
       <div class="proc-wheel"><ol class="proc-list" id="procList"><li data-i="0">Discover</li><li data-i="1">Define</li><li data-i="2">Ideate</li><li data-i="3">Prototype</li><li data-i="4">Test</li><li data-i="5">Deliver</li></ol></div>
       <div class="proc-desc">
-        <div class="pd" data-i="0"><p class="pd-hu"><span class="pd-k">By hand</span>Interviews, surveys and competitive analysis, to see how people actually behave before deciding anything.<span class="pd-tools">Miro / Notion</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">Perplexity and NotebookLM scan papers, markets and reviews in minutes. I trace every claim back to its source.</span><span class="pd-tools">Perplexity / NotebookLM / Gemini</span></p></div>
-        <div class="pd" data-i="1"><p class="pd-hu"><span class="pd-k">By hand</span>Affinity maps, journey maps and information architecture, until the real problem is sharp enough to design for.<span class="pd-tools">FigJam / Miro</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">Claude and NotebookLM cluster hours of transcripts into themes. I check each one against the raw quotes.</span><span class="pd-tools">Claude / NotebookLM</span></p></div>
-        <div class="pd" data-i="2"><p class="pd-hu"><span class="pd-k">By hand</span>Sketches, flows and wild options on paper first, because the first idea is rarely the right one.<span class="pd-tools">FigJam / Illustrator</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">Claude Design, ChatGPT and Higgsfield widen the field: more directions, moods and edge cases than I could draw alone.</span><span class="pd-tools">Claude Design / ChatGPT / Higgsfield AI</span></p></div>
-        <div class="pd" data-i="3"><p class="pd-hu"><span class="pd-k">By hand</span>Wireframes, design systems and high-fidelity screens, crafted and refined by hand.<span class="pd-tools">Figma / Framer</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">Figma Make, Google Stitch and Claude Artifacts turn sketches into clickable flows in hours, so ideas meet users sooner.</span><span class="pd-tools">Figma Make / Google Stitch / Claude Artifacts</span></p></div>
-        <div class="pd" data-i="4"><p class="pd-hu"><span class="pd-k">By hand</span>Usability sessions with real people. Watching where they hesitate tells me more than any metric.<span class="pd-tools">Figma / Notion</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">AI helps me prepare scripts and sort notes, never replace participants. I co-authored research on exactly where AI-generated user data falls short.</span><span class="pd-tools">Claude / NotebookLM</span></p></div>
-        <div class="pd" data-i="5"><p class="pd-hu"><span class="pd-k">By hand</span>Specs, documentation and handoff that engineers can actually build from.<span class="pd-tools">Figma / HTML · CSS · JS</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">Claude Code, Antigravity and Figma MCP let me ship working products myself. Substract went from idea to a live app in a three-day sprint.</span><span class="pd-tools">Claude Code / Antigravity / Figma MCP</span></p></div>
+        <div class="pd" data-i="0"><p class="pd-hu"><span class="pd-k">The craft</span>Interviews, surveys and competitive analysis, to see how people actually behave before deciding anything.<span class="pd-tools">Miro / Notion</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">Perplexity and NotebookLM scan papers, markets and reviews in minutes. I trace every claim back to its source.</span><span class="pd-tools">Perplexity / NotebookLM / Gemini</span></p></div>
+        <div class="pd" data-i="1"><p class="pd-hu"><span class="pd-k">The craft</span>Affinity maps, journey maps and information architecture, until the real problem is sharp enough to design for.<span class="pd-tools">FigJam / Miro</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">Claude and NotebookLM cluster hours of transcripts into themes. I check each one against the raw quotes.</span><span class="pd-tools">Claude / NotebookLM</span></p></div>
+        <div class="pd" data-i="2"><p class="pd-hu"><span class="pd-k">The craft</span>Sketches, flows and wild options on paper first, because the first idea is rarely the right one.<span class="pd-tools">FigJam / Illustrator</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">Claude Design, ChatGPT and Higgsfield widen the field: more directions, moods and edge cases than I could draw alone.</span><span class="pd-tools">Claude Design / ChatGPT / Higgsfield AI</span></p></div>
+        <div class="pd" data-i="3"><p class="pd-hu"><span class="pd-k">The craft</span>Wireframes, design systems and high-fidelity screens, crafted and refined by hand.<span class="pd-tools">Figma / Framer</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">Figma Make, Google Stitch and Claude Artifacts turn sketches into clickable flows in hours, so ideas meet users sooner.</span><span class="pd-tools">Figma Make / Google Stitch / Claude Artifacts</span></p></div>
+        <div class="pd" data-i="4"><p class="pd-hu"><span class="pd-k">The craft</span>Usability sessions with real people. Watching where they hesitate tells me more than any metric.<span class="pd-tools">Figma / Notion</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">AI helps me prepare scripts and sort notes, never replace participants. I co-authored research on exactly where AI-generated user data falls short.</span><span class="pd-tools">Claude / NotebookLM</span></p></div>
+        <div class="pd" data-i="5"><p class="pd-hu"><span class="pd-k">The craft</span>Specs, documentation and handoff that engineers can actually build from.<span class="pd-tools">Figma / HTML · CSS · JS</span></p><p class="pd-ai"><span class="pd-tag"><svg aria-hidden="true"><use href="#ast"/></svg>With AI</span><span class="pd-txt">Claude Code, Antigravity and Figma MCP let me ship working products myself. Substract went from idea to a live app in a three-day sprint.</span><span class="pd-tools">Claude Code / Antigravity / Figma MCP</span></p></div>
       </div>
     </div>
     <div class="proc-outro" id="procOutro"><p class="proc-out"><span class="rv"><span>AI speeds up the making.</span></span><span class="rv"><span>What to make, and why,</span></span><span class="rv"><span class="hl">stays human.</span></span></p></div>
@@ -1443,10 +1468,27 @@ const workCards=buildWork();
     head.style.setProperty('padding-top',Math.max(8,pad+off)+'px','important');}
   fit();window.__fitMast=fit;document.fonts&&document.fonts.ready.then(fit);let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(fit,120);});})();
 
+/* name hover: the letters break up into missing square blocks, densest near the cursor */
+(function(){const h1=document.getElementById('heroTitle');if(!h1||!matchMedia('(hover:hover) and (pointer:fine)').matches||RM)return;
+  const cv=document.createElement('canvas'),cx=cv.getContext('2d');let amt=0,target=0,raf=0,mx=.5,my=.5,last=0,seed=[];
+  function draw(now){raf=0;amt+=(target-amt)*.035;if(Math.abs(target-amt)<.004)amt=target;
+    const r=h1.getBoundingClientRect(),fs=parseFloat(getComputedStyle(h1).fontSize),P=Math.ceil(fs*.35),W=Math.ceil(r.width)+2*P,H=Math.ceil(r.height)+2*P,B=Math.max(8,Math.round(fs*.075));
+    if(amt<=0.001){h1.style.webkitMaskImage=h1.style.maskImage='';return;}
+    if(now-last>280||!seed.length){last=now;const cols=Math.ceil(W/B),rows=Math.ceil(H/B);seed=[];for(let i=0;i<cols*rows;i++)seed.push(Math.random());
+      cv.width=W;cv.height=H;cx.fillStyle='#000';cx.fillRect(0,0,W,H);
+      const R=B*9,px=P+mx*r.width,py=P+my*r.height;for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const d=Math.hypot((i+.5)*B-px,(j+.5)*B-py)/R;
+        const p=amt*.6*Math.max(0,1-d);if(p>0&&seed[j*cols+i]<p)cx.clearRect(i*B,j*B,B,B);}
+      const u='url('+cv.toDataURL()+')';h1.style.webkitMaskImage=h1.style.maskImage=u;h1.style.webkitMaskSize=h1.style.maskSize=W+'px '+H+'px';h1.style.webkitMaskPosition=h1.style.maskPosition=(-P)+'px '+(-P)+'px';h1.style.webkitMaskRepeat=h1.style.maskRepeat='no-repeat';}
+    if(amt>0||target>0)raf=requestAnimationFrame(draw);}
+  const go=()=>{if(!raf)raf=requestAnimationFrame(draw);};
+  h1.addEventListener('pointerenter',()=>{target=1;go();});
+  h1.addEventListener('pointermove',e=>{const r=h1.getBoundingClientRect();mx=(e.clientX-r.left)/r.width;my=(e.clientY-r.top)/r.height;});
+  h1.addEventListener('pointerleave',()=>{target=0;go();});})();
+
 /* stat chip sits on the optical middle of the caps in "Let's design" */
 (function(){const row=document.querySelector('#heroLine .hl-row'),chip=row&&row.querySelector('.hl-chip');if(!chip)return;
   function fit(){const rv=row.querySelector('.rv'),cs=getComputedStyle(rv),fs=parseFloat(cs.fontSize),lh=parseFloat(getComputedStyle(rv.firstElementChild).lineHeight)||fs*.9;
-    const c=document.createElement('canvas').getContext('2d');c.font='500 '+fs+'px Nohemi';const m=c.measureText('H');
+    const c=document.createElement('canvas').getContext('2d');c.font=cs.fontWeight+' '+fs+'px '+cs.fontFamily;const m=c.measureText('H');
     const r=rv.getBoundingClientRect(),top=r.top+parseFloat(cs.paddingTop);const base=top+(lh+(m.fontBoundingBoxAscent-m.fontBoundingBoxDescent))/2;
     const capMid=base-m.actualBoundingBoxAscent/2;chip.style.setProperty('--chipY','0px');chip.style.setProperty('--chipX','0px');const cr=chip.getBoundingClientRect();
     chip.style.setProperty('--chipY',(capMid-(cr.top+cr.height/2))+'px');
@@ -1506,9 +1548,9 @@ if(!RM)document.querySelectorAll('.xr').forEach(r=>{const tile=r.querySelector('
     .fromTo(hd,{opacity:0,y:24},{opacity:1,y:0,ease:'power2.out'},.15);});
 /* process scene: centred title -> wheel of stages (icon ring + description) -> outro */
 (function(){const sec=document.getElementById('ai');if(!sec)return;
-  const list=document.getElementById('procList'),lis=[...list.children],descs=[...sec.querySelectorAll('.pd')],ics=[...sec.querySelectorAll('.pc-ic')],dash=sec.querySelector('.pr-dash');
+  const list=document.getElementById('procList'),lis=[...list.children],descs=[...sec.querySelectorAll('.pd')],ics=[...sec.querySelectorAll('.pc-ic')];
   const fls=[...sec.querySelectorAll('.fl')],flSet=fls.map(el=>gsap.quickSetter(el,'y','px')),flZ=fls.map(el=>.5+(+el.dataset.z)*1.6);
-  const N=lis.length,A=.17,B=.84;let active=-2,pitch=0;
+  const N=lis.length,A=.04,B=.84;let active=-2,pitch=0;
   const measure=()=>{pitch=lis.length>1?lis[1].offsetTop-lis[0].offsetTop:60;};
   function place(f){if(!pitch)measure();const c=Math.max(0,Math.min(N-1,f));
     list.style.transform=`translate3d(0,${-(lis[0].offsetTop+lis[0].offsetHeight/2)-c*pitch}px,0)`;
@@ -1521,39 +1563,50 @@ if(!RM)document.querySelectorAll('.xr').forEach(r=>{const tile=r.querySelector('
     el._dt=setInterval(()=>{f++;const rev=Math.floor(fin.length*f/tot);let o='';for(let c=0;c<fin.length;c++){const ch=fin[c];o+=c<rev||ch===' '?ch:G[(Math.random()*G.length)|0];}el.textContent=o;if(f>=tot){clearInterval(el._dt);el.textContent=fin;}},24);}
   setActive(0);place(0);addEventListener('resize',()=>{measure();});
   if(RM){sec.classList.add('rm');return;}
-  gsap.set('#procIntro .rv>span',{yPercent:135});gsap.set('#procBody',{autoAlpha:0});gsap.set('#procOutro',{autoAlpha:0});gsap.set('#procOutro .rv>span',{yPercent:135});
-  gsap.timeline({scrollTrigger:{trigger:sec,start:'top 75%',end:'top top',scrub:1.2}})
-    .to('#procIntro .rv>span',{yPercent:0,stagger:.25,ease:'power3.out'},0)
-    .fromTo('.proc-kicker',{opacity:0,y:20},{opacity:1,y:0,ease:'power2.out'},.35);
+  gsap.set('#procLeft .rv>span',{yPercent:135});gsap.set('#procOutro',{autoAlpha:0});gsap.set('#procOutro .rv>span',{yPercent:135});
+  gsap.timeline({scrollTrigger:{trigger:sec,start:'top 70%',end:'top top',scrub:1.2}})
+    .fromTo('.proc-box',{opacity:0,scale:.8},{opacity:1,scale:1,ease:'power2.out'},0)
+    .fromTo('.proc-left .proc-kicker',{opacity:0,y:16},{opacity:1,y:0,ease:'power2.out'},.15)
+    .to('#procLeft .rv>span',{yPercent:0,stagger:.2,ease:'power3.out'},.25)
+    .fromTo(['.proc-wheel','.proc-desc'],{opacity:0,y:40},{opacity:1,y:0,stagger:.15,ease:'power2.out'},.3);
   gsap.timeline({scrollTrigger:{trigger:sec,start:'top top',end:'bottom bottom',scrub:1}})
-    .to('#procIntro',{opacity:0,scale:.92,y:-60,ease:'power2.in',duration:.05},A-.07)
-    .to('#procBody',{autoAlpha:1,duration:.04},A-.03)
-    .to('#procBody',{autoAlpha:0,y:-50,duration:.04},B)
-    .to('#procOutro',{autoAlpha:1,duration:.01},B+.02)
-    .to('#procOutro .rv>span',{yPercent:0,stagger:.02,duration:.04,ease:'power3.out'},B+.02)
-    .to('#floaters',{opacity:.45,duration:.04},A-.03).to('#floaters',{opacity:1,duration:.04},B)
+    .to('#floaters',{opacity:.45,duration:.04},0).to('#floaters',{opacity:1,duration:.04},B)
 ;
+  /* ending lines: played on their own clock so a fast snap never makes them pop */
+  const outTl=gsap.timeline({paused:true})
+    .set('#procOutro',{autoAlpha:1})
+    .fromTo('#procOutro .rv>span',{yPercent:135},{yPercent:0,duration:1.4,ease:'power4.out',stagger:.32},.25);
+  let outOn=false;
   let cur=0,target=0;
   gsap.ticker.add(()=>{if(Math.abs(target-cur)<.0005)return;cur+=(target-cur)*.12;place(cur);});
   ScrollTrigger.create({trigger:sec,start:'top top',end:'bottom bottom',onUpdate:s=>{const p=s.progress;
     const f=(p-A)/(B-A)*N-.5;target=Math.max(0,Math.min(N-1,f));setActive(Math.round(target));
-    dash.style.transform=`rotate(${p*540}deg)`;
+    const wantOut=p>B+.01;if(wantOut!==outOn){outOn=wantOut;if(wantOut){gsap.to('#procBody',{autoAlpha:0,y:-40,duration:.35,ease:'power2.in',overwrite:true});outTl.timeScale(1).restart();}else{outTl.pause();gsap.to('#procOutro',{autoAlpha:0,duration:.18,ease:'power1.out',overwrite:true,onComplete:()=>gsap.set('#procOutro .rv>span',{yPercent:135})});gsap.to('#procBody',{autoAlpha:1,y:0,duration:.45,delay:.22,ease:'power2.out',overwrite:true});}}
     const base=-p*innerHeight*1.4;for(let k=0;k<fls.length;k++)flSet[k](base*flZ[k]);}});
   // snap: intro -> each stage -> outro. One gesture = one step, settles once input stops.
   (function(){const pts=()=>{const st=sec.offsetTop,len=sec.offsetHeight-innerHeight;return [0,...lis.map((_,k)=>A+(B-A)*(k+.5)/N),1].map(q=>st+len*q);};
     let lastIn=0,pending=false,busy=false,lastY=null;
     const mark=()=>{lastIn=performance.now();pending=true;busy=false;};
-    ['wheel','touchmove','keydown'].forEach(ev=>addEventListener(ev,mark,{passive:true}));
+    ['touchmove','keydown'].forEach(ev=>addEventListener(ev,mark,{passive:true}));
+    /* wheel: one notch = one stage, instantly (tak tak tak) */
+    let lockUntil=0,lastWheel=0;
+    addEventListener('wheel',e=>{if(Math.abs(e.deltaY)<2)return;const y=lenis?lenis.animatedScroll:scrollY,st=sec.offsetTop,en=st+sec.offsetHeight-innerHeight;
+      if(y<st-4||y>en+4)return;const P=pts(),down=e.deltaY>0;
+      const to=down?P.find(q=>q>y+4):[...P].reverse().find(q=>q<y-4);
+      if(to==null)return;                      // past first/last stop: let the page scroll on
+      e.preventDefault();e.stopImmediatePropagation();
+      const now=performance.now(),gap=now-lastWheel;lastWheel=now;if(now<lockUntil&&gap<180)return;if(now<lockUntil-260)return;lockUntil=now+520;
+      pending=false;busy=true;lastY=to;lenis?lenis.scrollTo(to,{duration:.42,easing:x=>1-Math.pow(1-x,4),force:true}):scrollTo({top:to,behavior:'smooth'});},{passive:false,capture:true});
     const moving=()=>lenis?Math.abs(lenis.targetScroll-lenis.animatedScroll)>.8:false;
     gsap.ticker.add(()=>{const y=lenis?lenis.animatedScroll:scrollY,P=pts(),st=P[0],en=P[P.length-1];
       if(busy){if(!moving())busy=false;return;}
       if(lastY===null||!pending){if(!moving())lastY=y;return;}
-      if(performance.now()-lastIn<200||moving())return;
+      if(performance.now()-lastIn<110||moving())return;
       pending=false;if(y<st-2||y>en+2){lastY=y;return;}
       if(P.some(q=>Math.abs(q-y)<4)){lastY=y;return;}
       const dir=y-lastY;let best=dir>0?P.find(q=>q>y):[...P].reverse().find(q=>q<y);if(best==null)best=y;
       if(Math.abs(dir)<40){best=P.reduce((a,q)=>Math.abs(q-y)<Math.abs(a-y)?q:a,P[0]);}
-      lastY=best;busy=true;lenis?lenis.scrollTo(best,{duration:.85,easing:x=>1-Math.pow(1-x,3)}):scrollTo({top:best,behavior:'smooth'});});})();
+      lastY=best;busy=true;lenis?lenis.scrollTo(best,{duration:.5,easing:x=>1-Math.pow(1-x,3)}):scrollTo({top:best,behavior:'smooth'});});})();
   lis.forEach((li,k)=>li.addEventListener('click',()=>{const st=sec.offsetTop,len=sec.offsetHeight-innerHeight;const y=st+len*(A+(B-A)*(k+.5)/N);lenis?lenis.scrollTo(y,{duration:1.2}):scrollTo({top:y,behavior:'smooth'});}));
 })();
 
@@ -1705,11 +1758,11 @@ function runLoader(){
   const nameCh=[...lines[0].querySelectorAll('.ch')],restCh=lines.slice(1).flatMap(l=>[...l.querySelectorAll('.ch')]);
   const sub=title.querySelector('.sub');
   const parts=['#heroTitle','#heroLine','.topnav','.resume-cta','.theme-btn','#mountainWrap','.chart','.vignette'];
-  if(RM){root.classList.remove('preload');nav.classList.remove('collapsed');go();return;}
+  if(RM){root.classList.remove('preload');nav.classList.remove('collapsed');document.body.classList.add('ready-hero');go();return;}
   body.classList.add('loading');lenis&&lenis.stop();window.scrollTo(0,0);
   startHeroSky();
   let finished=false;
-  const finish=()=>{if(finished)return;finished=true;body.classList.remove('loading');lenis&&lenis.start();window.__startFluid&&window.__startFluid();try{ScrollTrigger.refresh();}catch(e){}};
+  const finish=()=>{if(finished)return;finished=true;body.classList.remove('loading');body.classList.add('ready-hero');lenis&&lenis.start();window.__startFluid&&window.__startFluid();try{ScrollTrigger.refresh();}catch(e){}};
   (document.fonts?document.fonts.ready:Promise.resolve()).then(()=>requestAnimationFrame(()=>{
     // hold everything hidden explicitly, then release the preload class
     gsap.set(parts,{opacity:0});gsap.set(restCh,{opacity:0,yPercent:60,filter:'blur(10px)'});gsap.set(sub,{opacity:0,filter:'blur(10px)',y:10});

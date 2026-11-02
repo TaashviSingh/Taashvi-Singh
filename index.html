@@ -806,6 +806,26 @@ html,body{overflow-x:clip}
 
 :root{--m:clamp(22px,3vw,52px)}
 .hl-chip{transform:translateY(var(--chipY,0px))}
+
+/* equal leading: the chip floats beside line 1 instead of stretching it */
+.hero-line .hl-row{display:block;position:relative}
+.hl-chip{position:absolute;left:0;top:0;transform:translate(var(--chipX,0px),var(--chipY,0px))}
+/* company logos pop out of the 2+ block */
+.hl-nw{position:relative;display:block;pointer-events:auto;cursor:var(--cur-p,pointer)}
+.hl-pop{position:absolute;left:50%;bottom:100%;display:flex;gap:6px;padding-bottom:12px;transform:translateX(-50%);pointer-events:none}
+.hl-tile{position:relative;display:block;width:clamp(34px,2.7vw,44px);height:clamp(34px,2.7vw,44px);background:#fff;opacity:0;transform:translateY(14px) scale(.6);
+  transition:opacity .25s ease,transform .45s cubic-bezier(.3,1.6,.5,1);transition-delay:calc(var(--i)*35ms)}
+.hl-tile b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:500;font-size:15px;color:#1f4aa6}
+.hl-tile img{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:contain}
+.hl-nw:hover .hl-pop,.hl-nw:focus-within .hl-pop{pointer-events:auto}
+.hl-nw:hover .hl-tile,.hl-nw:focus-within .hl-tile{opacity:1;transform:none}
+.hl-tile::after{content:attr(data-name);position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);white-space:nowrap;
+  padding:5px 8px;background:#0b0b0d;color:#fff;font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:11.5px;font-weight:600;letter-spacing:.02em;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.hl-tile:hover::after{opacity:1;transform:translateX(-50%)}
+.hl-tile:hover{transform:translateY(-3px)!important;transition-delay:0s}
+.hl-nw:hover .hl-n{background:#e9eefb}
+.hl-n{transition:background .25s}
+@media (max-width:760px){.hl-chip{transform:none;top:auto}.hl-pop{left:0;transform:none}}
 </style>
 <style>html,body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -891,7 +911,7 @@ window.__loaderKill=kill;setTimeout(kill,9000);window.addEventListener('error',f
     </header>
     <div class="hero-line" id="heroLine">
       <div class="hl-row"><span class="rv"><span><svg class="ast" aria-hidden="true"><use href="#astC"/></svg>Let’s design</span></span>
-        <div class="hl-chip"><span class="hl-ph"><span class="hl-in">TS</span><img src="profile.jpg" alt="Taashvi Singh" onerror="this.style.display='none'"></span><span class="hl-n">2+</span><span class="hl-t">Years of<br>experience</span></div></div>
+        <div class="hl-chip"><span class="hl-ph"><span class="hl-in">TS</span><img src="profile.jpg" alt="Taashvi Singh" onerror="this.style.display='none'"></span><span class="hl-nw"><span class="hl-n">2+</span><span class="hl-pop" role="list" aria-label="Companies"><span class="hl-tile" data-name="Synopsys" style="--i:0"><b>S</b><img src="i1.jpg" alt="Synopsys" onerror="this.style.display='none'"></span><span class="hl-tile" data-name="Neuralix.AI" style="--i:1"><b>N</b><img src="i2.png" alt="Neuralix.AI" onerror="this.style.display='none'"></span><span class="hl-tile" data-name="EsportzOnly" style="--i:2"><b>E</b><img src="i3.jpg" alt="EsportzOnly" onerror="this.style.display='none'"></span><span class="hl-tile" data-name="Yellow Slice" style="--i:3"><b>Y</b><img src="i4.jpeg" alt="Yellow Slice" onerror="this.style.display='none'"></span><span class="hl-tile" data-name="Cohyve" style="--i:4"><b>C</b><img src="i5.jpg" alt="Cohyve" onerror="this.style.display='none'"></span><span class="hl-tile" data-name="Innovascape LLP" style="--i:5"><b>I</b><img src="i6.jpg" alt="Innovascape LLP" onerror="this.style.display='none'"></span></span></span><span class="hl-t">Years of<br>experience</span></div></div>
       <span class="rv"><span>the future we</span></span>
       <span class="rv dim"><span>want to see</span></span>
     </div>
@@ -1428,8 +1448,11 @@ const workCards=buildWork();
   function fit(){const rv=row.querySelector('.rv'),cs=getComputedStyle(rv),fs=parseFloat(cs.fontSize),lh=parseFloat(getComputedStyle(rv.firstElementChild).lineHeight)||fs*.9;
     const c=document.createElement('canvas').getContext('2d');c.font='500 '+fs+'px Nohemi';const m=c.measureText('H');
     const r=rv.getBoundingClientRect(),top=r.top+parseFloat(cs.paddingTop);const base=top+(lh+(m.fontBoundingBoxAscent-m.fontBoundingBoxDescent))/2;
-    const capMid=base-m.actualBoundingBoxAscent/2;chip.style.setProperty('--chipY','0px');const cr=chip.getBoundingClientRect();
-    chip.style.setProperty('--chipY',(capMid-(cr.top+cr.height/2))+'px');}
+    const capMid=base-m.actualBoundingBoxAscent/2;chip.style.setProperty('--chipY','0px');chip.style.setProperty('--chipX','0px');const cr=chip.getBoundingClientRect();
+    chip.style.setProperty('--chipY',(capMid-(cr.top+cr.height/2))+'px');
+    if(innerWidth<=760){chip.style.setProperty('--chipX','0px');chip.style.setProperty('--chipY','0px');return;}
+    const sp=rv.firstElementChild,range=document.createRange();range.selectNodeContents(sp);const tr=range.getBoundingClientRect(),rr=row.getBoundingClientRect();
+    chip.style.setProperty('--chipX',(tr.right-rr.left+Math.max(16,fs*.32))+'px');}
   window.__fitChip=fit;document.fonts&&document.fonts.ready.then(()=>setTimeout(fit,50));let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(fit,140);});setTimeout(fit,6000);})();
 
 /* ---------- smooth scroll + scroll scenes ---------- */

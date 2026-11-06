@@ -1413,13 +1413,15 @@ function paintCardGlyph(){const c=document.getElementById('cardGlyph');const [w,
 const WORK_ARTS={deep:"linear-gradient(150deg,oklch(.3 .09 265),oklch(.5 .16 258) 60%,oklch(.72 .14 250))",ice:"linear-gradient(160deg,oklch(.55 .13 240),oklch(.78 .09 220) 55%,oklch(.94 .04 250))",aurora:"linear-gradient(150deg,oklch(.62 .18 275),oklch(.72 .13 235) 55%,oklch(.9 .07 210))",plum:"linear-gradient(150deg,oklch(.32 .1 300),oklch(.5 .17 305) 60%,oklch(.72 .15 320))",dusk:"linear-gradient(160deg,oklch(.42 .16 285),oklch(.58 .17 320) 60%,oklch(.8 .1 30))",sky:"linear-gradient(160deg,oklch(.5 .11 253),oklch(.72 .08 245) 55%,oklch(.92 .03 250))",moss:"linear-gradient(160deg,oklch(.4 .1 200),oklch(.62 .13 175) 55%,oklch(.85 .1 160))"};
 const WORK_CARDS=[
   {pin:1,kind:"UI · Visual Design · Product Design",title:"Cohyve",image:"p1.png",r:"std",url:"cohyve.html",art:"deep"},
+  {kind:"Enterprise UX · AI Governance · Rebrand",title:"Synopsys",image:"synopsys-cover.png",r:"wide",url:"synopsys.html",art:"plum"},
   {kind:"Cognitive Ergonomics · UI Redesign · UX Research",title:"Blinkit Redesign",image:"p4.jpg",r:"sq",url:"blinkit.html",art:"moss"},
   {kind:"Game UX · UI Redesign",title:"Deadlock",image:"p3.png",r:"tall",url:"deadlock.html",art:"dusk"},
+  {kind:"Game UX · Physical Computing · Interaction Design",title:"Tangible Game UX",image:"tangible-cover.png",r:"sq",url:"tangible.html",art:"dusk"},
   {kind:"Design Engineering · Vibe Coding · Agentic AI · UI · UX",title:"Substract",image:"p2.png",r:"pano",url:"substract.html",art:"aurora"},
   {kind:"Designathon · Agentic AI · UX · UI",title:"Credlo",image:"p6.png",r:"wide",url:"credlo.html",art:"plum"},
   {kind:"UX Research · UX Design · UI & Visual Design",title:"Evently",image:"p5.png",r:"wide",url:"evently.html",art:"ice"},
   {kind:"UX Research",title:"Digital Wellbeing",image:"p7.png",r:"tall",url:"digitalwellbeing.html",art:"sky"}];
-const TAGS={'Cohyve':'PRODUCT','Blinkit Redesign':'UX RESEARCH','Deadlock':'GAME UX','Substract':'AI · BUILD','Credlo':'AGENTIC AI','Evently':'UX DESIGN','Digital Wellbeing':'RESEARCH'};
+const TAGS={'Synopsys':'ENTERPRISE UX','Tangible Game UX':'GAME UX','Cohyve':'PRODUCT','Blinkit Redesign':'UX RESEARCH','Deadlock':'GAME UX','Substract':'AI · BUILD','Credlo':'AGENTIC AI','Evently':'UX DESIGN','Digital Wellbeing':'RESEARCH'};
 function buildWork(){
   const feed=document.getElementById('feed');if(!feed)return [];
   const hgt={tall:1.33,wide:.8,sq:1,std:.75,pano:.867};

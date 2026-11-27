@@ -929,12 +929,13 @@ html:not(.preload) body:not(.loading) .ld-bg.gone{display:none}
 .ap-ai{font-family:var(--serif);font-weight:500;text-transform:uppercase;letter-spacing:-.05em;line-height:.8;font-size:clamp(90px,min(17vw,30vh),300px)}
 .ap-label{margin:0;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:1.6;color:rgba(255,255,255,.6)}
 .ap-flow{position:relative;padding:62vh max(var(--m),env(safe-area-inset-right,0px)) 30vh calc(max(var(--m),env(safe-area-inset-left,0px)) + 36%)}
-.ap-verbs{margin:0;font-family:var(--serif);font-weight:500;text-transform:uppercase;letter-spacing:-.05em;line-height:.88;font-size:clamp(50px,min(7.4vw,14vh),130px)}
-.ap-verbs b{display:block;font-weight:500;margin-left:calc(var(--i) * .8em);white-space:nowrap}
+.ap-verbs{margin:0;font-family:var(--serif);font-weight:500;text-transform:uppercase;letter-spacing:-.05em;line-height:.88;font-size:clamp(46px,min(6.5vw,13vh),118px)}
+.ap-verbs b{display:block;font-weight:500;margin-left:calc(var(--i) * .6em);white-space:nowrap}
 .ap-verbs b>span{display:inline-block;will-change:transform}
-.ap-note{margin:clamp(60px,12vh,120px) 0 0;max-width:36ch;color:rgba(255,255,255,.7);font-size:clamp(14px,1.05vw,16px);line-height:1.55}
+.ap-note{margin:clamp(60px,12vh,120px) 0 0;max-width:none;color:rgba(255,255,255,.7);font-size:clamp(14px,1.05vw,16px);line-height:1.55}
 .ap-note p{margin:0}.ap-lead{font-family:var(--serif);font-weight:500;letter-spacing:-.03em;color:#fff;font-size:clamp(24px,2.4vw,38px);line-height:1.08;margin-bottom:14px!important}
 .ap-lead span{color:rgba(255,255,255,.45)}
+.ap-lead{max-width:15.5em;text-wrap:balance}.ap-note p:not(.ap-lead){max-width:46ch}
 /* steps: WE DO */
 .sp{position:relative;z-index:2;height:780vh;background:var(--dk)}
 .sp-stage{position:sticky;top:0;height:100vh;overflow:hidden;color:#fff;background:var(--dk);--row:42vh;--iw:clamp(170px,17vw,290px)}
@@ -962,7 +963,7 @@ html:not(.preload) body:not(.loading) .ld-bg.gone{display:none}
 .sp .proc-out .hl{color:rgba(255,255,255,.45)}
 .sp.rm{height:auto}.sp.rm .sp-stage{position:relative;height:auto;min-height:100vh}
 @media (max-width:760px){
-  .ap-flow{padding-left:max(var(--m),env(safe-area-inset-left,0px))}.ap-verbs{font-size:clamp(40px,12vw,64px)}.ap-verbs b{margin-left:calc(var(--i) * .45em)}
+  .ap-flow{padding-left:max(var(--m),env(safe-area-inset-left,0px))}.ap-verbs{font-size:clamp(36px,11vw,60px)}.ap-verbs b{margin-left:calc(var(--i) * .35em)}
   .ap-pinin{top:calc(var(--m) + 70px);transform:none}.ap-ai{font-size:clamp(64px,20vw,100px)}
   .sp-stage{--row:30vh;--iw:44vw}.sp-imwin,.sp-win{left:auto;right:var(--m)}
   .sp-descs{width:calc(100% - 44vw - 3*var(--m))}
@@ -1185,10 +1186,10 @@ window.__loaderKill=kill;setTimeout(kill,12000);})();
 <!-- AI WORKFLOW -->
 <section class="ap" id="ai" data-ui="night" data-label="Process">
   <div class="sec-row"><span>Process</span><span class="sr-rule"></span><span class="sr-n">5 steps</span></div>
-  <div class="ap-pin"><div class="ap-pinin"><span class="ap-ai" id="apAI">AI</span><p class="ap-label" id="apLabel">How I integrate AI<br>into my design process</p></div></div>
+  <div class="ap-pin"><div class="ap-pinin"><span class="ap-ai" id="apAI">AI</span><p class="ap-label" id="apLabel">How I design<br>with AI</p></div></div>
   <div class="ap-flow">
-    <p class="ap-verbs" id="apVerbs"><b style="--i:0"><span>finds</span></b><b style="--i:1"><span>sorts</span></b><b style="--i:2"><span>sketches</span></b><b style="--i:3"><span>builds</span></b></p>
-    <div class="ap-note" id="apNote"><p class="ap-lead">AI handles the legwork.<br><span>I make the calls.</span></p><p>Every stage pairs my own judgement with the tools that make it faster.</p></div>
+    <p class="ap-verbs" id="apVerbs"><b style="--i:0"><span>scans</span></b><b style="--i:1"><span>sorts</span></b><b style="--i:2"><span>challenges</span></b><b style="--i:3"><span>prototypes</span></b></p>
+    <div class="ap-note" id="apNote"><p class="ap-lead">AI makes me faster at every stage,<br><span>so I can spend more time on the people I design for.</span></p></div>
   </div>
 </section>
 
@@ -1199,7 +1200,7 @@ window.__loaderKill=kill;setTimeout(kill,12000);})();
       <ol class="sp-words dim" id="spWords" aria-hidden="true"><li>Discover</li><li>Define</li><li>Ideate</li><li>Prototype</li><li>Deliver</li></ol>
       <div class="sp-win" id="spWin"><ol class="sp-words lit" id="spWordsLit"><li>Discover</li><li>Define</li><li>Ideate</li><li>Prototype</li><li>Deliver</li></ol></div>
       <div class="sp-imwin" id="spImWin"><div class="sp-imtrack" id="spImTrack"><div class="sp-im"><span class="sp-ph">we1</span><img src="we1.png" alt="Discover" onerror="this.remove()"></div><div class="sp-im"><span class="sp-ph">we2</span><img src="we2.png" alt="Define" onerror="this.remove()"></div><div class="sp-im"><span class="sp-ph">we3</span><img src="we3.png" alt="Ideate" onerror="this.remove()"></div><div class="sp-im"><span class="sp-ph">we4</span><img src="we4.png" alt="Prototype" onerror="this.remove()"></div><div class="sp-im"><span class="sp-ph">we5</span><img src="we5.png" alt="Deliver" onerror="this.remove()"></div></div></div>
-      <div class="sp-descs"><div class="sp-d" data-i="0"><span class="sp-n">01 / 05</span><p>Interviews and desk research, sped up. AI scans the field fast; I check every claim at its source.</p><span class="sp-t">Perplexity · NotebookLM · Gemini</span></div><div class="sp-d" data-i="1"><span class="sp-n">02 / 05</span><p>Hours of transcripts clustered into themes in minutes, then sharpened by hand into the real problem.</p><span class="sp-t">Claude · NotebookLM · FigJam</span></div><div class="sp-d" data-i="2"><span class="sp-n">03 / 05</span><p>More directions, moods and edge cases than I could sketch alone. I pick the ones worth chasing.</p><span class="sp-t">Claude Design · ChatGPT · Higgsfield</span></div><div class="sp-d" data-i="3"><span class="sp-n">04 / 05</span><p>Sketch to clickable flow in hours, so ideas meet real people sooner.</p><span class="sp-t">Figma Make · Google Stitch · Claude Artifacts</span></div><div class="sp-d" data-i="4"><span class="sp-n">05 / 05</span><p>I ship working builds myself. Substract went from idea to live in three days.</p><span class="sp-t">Claude Code · Antigravity · Figma MCP</span></div></div>
+      <div class="sp-descs"><div class="sp-d" data-i="0"><span class="sp-n">01 / 05</span><p>AI helps me plan the study and skim what’s already out there. I still sit in the interviews myself, because no summary replaces watching someone get stuck.</p><span class="sp-t">Perplexity · NotebookLM · Gemini</span></div><div class="sp-d" data-i="1"><span class="sp-n">02 / 05</span><p>AI is my thought partner for sorting notes, never the one deciding what they mean. I make sense of them myself, so every insight is mine to defend.</p><span class="sp-t">Claude · NotebookLM · FigJam</span></div><div class="sp-d" data-i="2"><span class="sp-n">03 / 05</span><p>I sketch first. Then AI challenges my ideas like a blunt teammate would: edge cases, empty states, what breaks. The ones that survive are tougher.</p><span class="sp-t">Claude Design · ChatGPT · Higgsfield</span></div><div class="sp-d" data-i="3"><span class="sp-n">04 / 05</span><p>AI turns rough sketches into realistic, clickable prototypes fast. The time it saves goes where it matters: who this is for and what they need.</p><span class="sp-t">Figma Make · Google Stitch · Claude Artifacts</span></div><div class="sp-d" data-i="4"><span class="sp-n">05 / 05</span><p>I build and ship working products myself. AI writes code faster than I can, but every call about what ships, and how it feels, is mine.</p><span class="sp-t">Claude Code · Antigravity · Figma MCP</span></div></div>
     </div>
     <div class="proc-outro" id="procOutro"><p class="proc-out"><span class="rv"><span>AI speeds up the making.</span></span><span class="rv"><span>What to make, and why,</span></span><span class="rv"><span class="hl">stays human.</span></span></p></div>
   </div>
